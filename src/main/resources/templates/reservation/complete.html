@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<!--Thymeleafを記載すること-->
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>予約完了</title>
@@ -9,6 +10,10 @@
 <p>祈願予約ありがとうございます。</p>
 <!--EL式で記述-->
 <table border="1">
+<tr>
+	<th>予約番号</th>
+	<td th:text="${reservationId}"></td>
+</tr>
 <tr>
     <th>名前</th>
     <td th:text="${name}"></td>
@@ -20,14 +25,14 @@
 <tr>
     <th>生年月日</th>
     <td th:text="${birthday}"></td>
-<tr>
+</tr>
     <th>電話番号</th>
     <td th:text="${phone}"></td>
 </tr>
 <tr>
     <th>住所</th>
     <td th:text="${address}"></td>
-<tr>
+</tr>
     <th>メールアドレス</th>
     <td th:text="${email}"></td>
 </tr>

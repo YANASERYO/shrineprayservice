@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.shrine.entity.ReservationEntity;
+import com.shrine.model.Reservation;
+import com.shrine.service.ReservationService;
+
 
 @Controller
 public class ReservationController {
@@ -15,6 +19,12 @@ public class ReservationController {
 //	public String test() {
 //		return "Controller OK";
 //	}
+	
+	private final ReservationService reservationService;
+	
+	public ReservationController(ReservationService reservationService) {
+		this.reservationService = reservationService;
+	}
 
     @GetMapping("/reservations/new")
     public String showForm() {
@@ -33,7 +43,23 @@ public class ReservationController {
         @RequestParam String prayerType,
         @RequestParam(required = false) String note,
         Model model) {
+    	
+    	Reservation reservation = new Reservation();
+    	
+    	reservation.setName(name);
+    	reservation.setKana(kana);
+    	reservation.setBirthday(birthday);
+    	reservation.setPhone(phone);
+    	reservation.setAddress(address);
+    	reservation.setEmail(email);
+    	reservation.setPreferredDate(preferredDate);
+    	reservation.setPrayerType(prayerType);
+    	reservation.setNote(note);
+    	
+    	ReservationEntity savedReservation = reservationService.createReservation(reservation);
         	
+    		model.addAttribute("reservationId", savedReservation.getId());
+    	
         	model.addAttribute("name", name);
         model.addAttribute("kana", kana);
         model.addAttribute("birthday", birthday);
