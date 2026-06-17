@@ -1,2 +1,106 @@
 # shrineprayservice
-神社の祈願予約フォーム/SpringBootにて作成
+
+## 概要
+
+Spring Bootを使用した神社用祈願予約管理アプリです。
+
+神社の祈願予約をWebフォームから受け付け、入力内容をPostgreSQLに保存することを目的としています。
+
+現在開発中です。
+
+## 神社の祈願の際に必要な事項
+
+神社で祈願を行う際は、祝詞で読み上げるため、事前に以下のような情報を把握しておく必要があります。
+
+- 氏名
+- ふりがな
+- 住所
+- 生年月日
+
+## 願意について
+
+願意とは、祈願における願い事のことです。
+
+現在の区分は以下を想定しています。
+
+- 無病息災
+- 恋愛成就
+- 家内安全
+- 商売繁盛
+- 学業成就
+- 交通安全
+- 開運厄除
+- 子宝祈願
+- 結婚祈願
+- 長寿祈願
+- その他
+
+※祝詞で読むため、事前に把握しておきたい情報があります。
+
+一般的な来店予約とは異なるため、神社ごとの運用に合わせて作成する必要があります。
+
+## 現在実装済みの機能
+
+- 祈願予約フォームの表示
+- 予約情報の入力
+- 入力内容の完了画面表示
+- PostgreSQLへの予約情報保存
+- 予約番号の自動採番
+- Controller / Service / Repository / Entity に分けた構成
+
+## アプリ構成
+
+```text
+com.shrine
+ ├ controller
+ │   └ ReservationController
+ ├ model
+ │   └ Reservation
+ ├ entity
+ │   └ ReservationEntity
+ ├ repository
+ │   └ ReservationRepository
+ ├ service
+ │   └ ReservationService
+ └ ShrineprayserviceApplication
+```
+
+## DB
+
+PostgreSQLの使用を想定しています。
+
+保存項目は以下の通りです。
+
+- 氏名
+- かな
+- 生年月日
+- 電話番号
+- 住所
+- メールアドレス
+- 祈願希望日
+- 祈願の種類
+- 備考
+
+## 今後の予定
+
+- 入力チェックの強化
+- 予約一覧画面
+- 予約詳細画面
+- 予約内容の編集・削除
+- 管理者画面
+- メール通知機能
+- 予約ステータス管理
+
+## 学習目的
+
+このアプリは、Spring Bootの基本的なWebアプリ開発を学習するために作成しています。
+
+以下の内容を意識しています。
+
+- Spring MVCの基本構成
+- Thymeleafによる画面表示
+- フォーム入力値の受け取り
+- Service層を使った処理分離
+- Spring Data JPAによるDB保存
+- PostgreSQLとの連携
+- Controller → Service → Repository → DB の流れ
