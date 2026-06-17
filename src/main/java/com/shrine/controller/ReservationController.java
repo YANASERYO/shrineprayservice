@@ -30,6 +30,13 @@ public class ReservationController {
     public String showForm() {
         return "reservation/form";
     }
+    
+//    一覧表示用
+    @GetMapping("/reservations")
+    public String listReservations(Model model) {
+		model.addAttribute("reservations", reservationService.findAllReservations());
+		return "reservation/list";
+	}
 
     @PostMapping("/reservations")
     public String createReservation(

@@ -2,6 +2,8 @@
 
 package com.shrine.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.shrine.entity.ReservationEntity;
@@ -22,7 +24,7 @@ public class ReservationService {
 		
 //  Idで管理したい場合もあるため保存からEntityを返す形に変更した
 //	public void save(Reservation reservation) {
-//	    ReservationEntity entity = new ReservationEntity();	
+//	ReservationEntity entity = new ReservationEntity();	
 	
 		entity.setName(reservation.getName());
 		entity.setKana(reservation.getKana());
@@ -36,5 +38,9 @@ public class ReservationService {
 		
 		return reservationRepository.save(entity);
 		
+	}
+	// 予約情報を全件取得
+	public List<ReservationEntity> findAllReservations() {
+		return reservationRepository.findAll();
 	}
 }

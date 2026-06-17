@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>祈願予約一覧</title>
+</head>
+<body>
+<h1>祈願予約一覧</h1>
+<p>
+    <a href="/reservations/new">新しい予約を登録</a>
+</p>
+<table border="1">
+    <tr>
+        <th>予約番号</th>
+        <th>氏名</th>
+        <th>かな</th>
+        <th>生年月日</th>
+        <th>電話番号</th>
+        <th>住所</th>
+        <th>メール</th>
+        <th>祈願希望日</th>
+        <th>祈願の種類</th>
+        <th>備考</th>
+    </tr>
+
+    <tr th:each="reservation : ${reservations}">
+        <td th:text="${reservation.id}"></td>
+        <td th:text="${reservation.name}"></td>
+        <td th:text="${reservation.kana}"></td>
+        <td th:text="${reservation.birthday}"></td>
+        <td th:text="${reservation.phone}"></td>
+        <td th:text="${reservation.address}"></td>
+        <td th:text="${reservation.email}"></td>
+        <td th:text="${reservation.preferredDate}"></td>
+        <td th:text="${reservation.prayerType}"></td>
+        <td th:text="${reservation.note}"></td>
+    </tr>
+</table>
+</body>
+</html>
