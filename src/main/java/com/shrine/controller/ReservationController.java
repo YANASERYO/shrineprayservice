@@ -3,6 +3,7 @@ package com.shrine.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -77,5 +78,17 @@ public class ReservationController {
         model.addAttribute("prayerType", prayerType);
         model.addAttribute("note", note);
         return "reservation/complete";
+    }
+    
+    @GetMapping("/reservations/{id}")
+    public String viewReservation(@PathVariable Long id, Model model) {
+    			ReservationEntity reservation = reservationService.findReservationById(id);
+		if (reservation == null) {
+			return "error/404"; // 予約が見つからない場合のエラーページ
+		}
+		model.addAttribute("reservation", reservation);
+		return "reservation/detail"; // 予約詳細ページのテンプレート名
+		
+		
     }
 }

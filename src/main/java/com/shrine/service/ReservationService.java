@@ -22,9 +22,9 @@ public class ReservationService {
 	public ReservationEntity createReservation(Reservation reservation) {
 		ReservationEntity entity = new ReservationEntity();
 		
-//  Idで管理したい場合もあるため保存からEntityを返す形に変更した
-//	public void save(Reservation reservation) {
-//	ReservationEntity entity = new ReservationEntity();	
+		//  Idで管理したい場合もあるため保存からEntityを返す形に変更した
+		//	public void save(Reservation reservation) {
+		//	ReservationEntity entity = new ReservationEntity();	
 	
 		entity.setName(reservation.getName());
 		entity.setKana(reservation.getKana());
@@ -43,4 +43,10 @@ public class ReservationService {
 	public List<ReservationEntity> findAllReservations() {
 		return reservationRepository.findAll();
 	}
+	
+	//	IDで予約情報を取得（1件返す）
+	public ReservationEntity findReservationById(Long id) {
+		return reservationRepository.findById(id).orElse(null);
+	}
+	
 }

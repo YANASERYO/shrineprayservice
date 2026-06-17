@@ -2,41 +2,58 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>祈願予約一覧</title>
+<title>予約詳細</title>
 </head>
 <body>
-<h1>祈願予約一覧</h1>
-<p>
-    <a href="/reservations/new">新しい予約を登録</a>
-</p>
+
+<h1>予約詳細</h1>
+
 <table border="1">
     <tr>
         <th>予約番号</th>
-        <th>氏名</th>
-        <th>かな</th>
-        <th>生年月日</th>
-        <th>電話番号</th>
-        <th>住所</th>
-        <th>メール</th>
-        <th>祈願希望日</th>
-        <th>祈願の種類</th>
-        <th>備考</th>
-		<hth>詳細</th>
-    </tr>
-
-    <tr th:each="reservation : ${reservations}">
         <td th:text="${reservation.id}"></td>
+    </tr>
+    <tr>
+        <th>氏名</th>
         <td th:text="${reservation.name}"></td>
+    </tr>
+    <tr>
+        <th>かな</th>
         <td th:text="${reservation.kana}"></td>
+    </tr>
+    <tr>
+        <th>生年月日</th>
         <td th:text="${reservation.birthday}"></td>
+    </tr>
+    <tr>
+        <th>電話番号</th>
         <td th:text="${reservation.phone}"></td>
+    </tr>
+    <tr>
+        <th>住所</th>
         <td th:text="${reservation.address}"></td>
+    </tr>
+    <tr>
+        <th>メールアドレス</th>
         <td th:text="${reservation.email}"></td>
+    </tr>
+    <tr>
+        <th>祈願希望日</th>
         <td th:text="${reservation.preferredDate}"></td>
+    </tr>
+    <tr>
+        <th>祈願の種類</th>
         <td th:text="${reservation.prayerType}"></td>
+    </tr>
+    <tr>
+        <th>備考</th>
         <td th:text="${reservation.note}"></td>
-		<td><a th:href="@{/reservations/{id}(id=${reservation.id})}">詳細</a></td>
     </tr>
 </table>
+
+<br>
+
+<a href="/reservations">予約一覧に戻る</a>
+
 </body>
 </html>
