@@ -49,4 +49,9 @@ public class ReservationService {
 		return reservationRepository.findById(id).orElse(null);
 	}
 	
+	//	削除する
+	public void deleteReservation(Long id) {
+		reservationRepository.deleteById(id);
+	}
+	
 }

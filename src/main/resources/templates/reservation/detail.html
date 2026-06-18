@@ -54,6 +54,8 @@
 <br>
 
 <a href="/reservations">予約一覧に戻る</a>
-
+<form th:action="@{/reservations/{id}/delete(id=${reservation.id})}" method="post" style="display:inline;">
+    <button type="submit">予約を削除</button>
+</form>
 </body>
 </html>

@@ -88,7 +88,13 @@ public class ReservationController {
 		}
 		model.addAttribute("reservation", reservation);
 		return "reservation/detail"; // 予約詳細ページのテンプレート名
-		
-		
     }
+    
+    
+    @PostMapping("/reservations/{id}/delete")
+    public String deleteReservation(@PathVariable Long id) {
+		reservationService.deleteReservation(id);
+		return "redirect:/reservations"; // 削除後に予約一覧ページへリダイレクト
+	}
+    
 }
