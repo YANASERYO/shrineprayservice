@@ -2,7 +2,11 @@
 
 package com.shrine.service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -36,6 +40,8 @@ public class ReservationService {
 		entity.setPreferredDate(reservation.getPreferredDate());
 		entity.setPrayerType(reservation.getPrayerType());
 		entity.setNote(reservation.getNote());
+		entity.setPrayed(false);
+		entity.setPrayedAt(null);
 		
 		return reservationRepository.save(entity);
 		
@@ -55,7 +61,7 @@ public class ReservationService {
 		reservationRepository.deleteById(id);
 	}
 	
-//	更新したい予約IDと、新しい予約情報を受け取る
+	//更新したい予約IDと、新しい予約情報を受け取る
 	public ReservationEntity updateReservation(Long id, Reservation updatedReservation) {
 		ReservationEntity existingReservation = reservationRepository.findById(id).orElse(null);
 		if (existingReservation != null) {
@@ -75,4 +81,50 @@ public class ReservationService {
 		return null;
 	}
 	
+	//一覧表示の祈願実施状況を判別するための機能
+	//findAll()してから抽出する
+	public List<ReservationEntity> findReservationsByFilter(String filter) {
+    List<ReservationEntity> reservations = reservationRepository.findAll();
+    String today = LocalDate.now().toString();
+
+    if ("future".equals(filter)) {
+        return reservations.stream()
+                .filter(r -> !r.isPrayed())
+                .filter(r -> r.getPreferredDate().compareTo(today) > 0)
+                .collect(Collectors.toList());
+    }
+
+    if ("prayed".equals(filter)) {
+        return reservations.stream()
+                .filter(r -> r.isPrayed())
+                .collect(Collectors.toList());
+    }
+
+    if ("all".equals(filter)) {
+        return reservations;
+    }
+
+    //今日の未祈願
+    return reservations.stream()
+            .filter(r -> !r.isPrayed())
+            .filter(r -> today.equals(r.getPreferredDate()))
+            .collect(Collectors.toList());
+	}
+    public void markAsPrayed(Long id) {
+        ReservationEntity reservation = reservationRepository.findById(id).orElse(null);
+
+        if (reservation != null) {
+            reservation.setPrayed(true);
+
+            String prayedAt = LocalDateTime.now()
+                    .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+            reservation.setPrayedAt(prayedAt);
+
+            reservationRepository.save(reservation);
+        }
+    }
+    
 }
+	
+

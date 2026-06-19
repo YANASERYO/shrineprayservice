@@ -39,8 +39,13 @@ public class ReservationController {
     
 //    一覧表示用
     @GetMapping("/reservations")
-    public String listReservations(Model model) {
-		model.addAttribute("reservations", reservationService.findAllReservations());
+    public String listReservations(
+    		//一覧表示にフィルタリングを適応するためのRP
+    		@RequestParam(defaultValue = "today") String filter,
+    		Model model) {
+    	
+		model.addAttribute("reservations", reservationService.findReservationsByFilter(filter));
+		model.addAttribute("filter", filter);
 		return "reservation/list";
 	}
 
@@ -133,7 +138,7 @@ public class ReservationController {
 		updatedReservation.setKana(kana);
 		updatedReservation.setBirthday(birthday);
 		updatedReservation.setPhone(phone);
-		updatedReservation.setPostalCode(postalCode);
+		updatedReservation.setPostalCode(postalCode.replace("-", "")); // 郵便番号のハイフンを削除
 		updatedReservation.setAddress(address);
 		updatedReservation.setEmail(email);
 		updatedReservation.setPreferredDate(preferredDate);
@@ -143,6 +148,14 @@ public class ReservationController {
 		reservationService.updateReservation(id, updatedReservation);
 		
 		return "redirect:/reservations/" + id; // 更新後に予約詳細ページへリダイレクト
-	}				
+	}
+    
+    //祈願済にする
+    @PostMapping("/reservations/{id}/pray")
+	public String markAsPrayed(@PathVariable Long id) {
+    		reservationService.markAsPrayed(id);
+    				return "redirect:/reservations";
+    }
+		
 }
     

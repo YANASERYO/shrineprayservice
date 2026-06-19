@@ -23,6 +23,10 @@ public class ReservationEntity {
     private String preferredDate;
     private String prayerType;
     private String note;
+    //祈願済かどうか真==祈願済、偽==祈願前
+    private boolean prayed;
+    //祈願日
+    private String prayedAt;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -56,4 +60,11 @@ public class ReservationEntity {
 
     public String getNote() { return note; }
     public void setNote(String note) { this.note = note; }
+    
+    public boolean isPrayed() { return prayed; }
+    public void setPrayed(boolean prayed) { this.prayed = prayed; }
+    
+    public String getPrayedAt() { return prayedAt; }
+    public void setPrayedAt(String prayedAt) { this.prayedAt = prayedAt;}
+    		
 }
