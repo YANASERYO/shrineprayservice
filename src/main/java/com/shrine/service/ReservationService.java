@@ -30,6 +30,7 @@ public class ReservationService {
 		entity.setKana(reservation.getKana());
 		entity.setBirthday(reservation.getBirthday());
 		entity.setPhone(reservation.getPhone());
+		entity.setPostalCode(reservation.getPostalCode());
 		entity.setAddress(reservation.getAddress());
 		entity.setEmail(reservation.getEmail());
 		entity.setPreferredDate(reservation.getPreferredDate());
@@ -62,6 +63,7 @@ public class ReservationService {
 			existingReservation.setKana(updatedReservation.getKana());
 			existingReservation.setBirthday(updatedReservation.getBirthday());
 			existingReservation.setPhone(updatedReservation.getPhone());
+			existingReservation.setPostalCode(updatedReservation.getPostalCode());
 			existingReservation.setAddress(updatedReservation.getAddress());
 			existingReservation.setEmail(updatedReservation.getEmail());
 			existingReservation.setPreferredDate(updatedReservation.getPreferredDate());

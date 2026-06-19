@@ -17,6 +17,7 @@ public class ReservationEntity {
     private String kana;
     private String birthday;
     private String phone;
+    private String postalCode;
     private String address;
     private String email;
     private String preferredDate;
@@ -37,6 +38,9 @@ public class ReservationEntity {
 
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
+    
+    public String getPostalCode() { return postalCode; }
+    public void setPostalCode(String postalCode) { this.postalCode = postalCode;}
 
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }

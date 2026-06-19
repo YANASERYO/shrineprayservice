@@ -9,28 +9,32 @@
 
 <form th:action="@{/reservations}" th:object="${reservationForm}" method="post">
     <label for="name">名前:</label>
-    <input type="text" id="name" th:field="*{name}"><br><br>
+    <input type="text" id="name" th:field="*{name}"　placeholder="例：山田　太郎"><br><br>
 	<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 	<p>初宮・代理参拝の方は、備考に詳細をご記入ください。</p>
 	
 	<label for="kana">かな:</label>
-	<input type="text" id="kana" th:field="*{kana}"><br><br>
+	<input type="text" id="kana" th:field="*{kana}" placeholder="例：やまだ　たろう"><br><br>
 	<p th:if="${#fields.hasErrors('kana')}" th:errors="*{kana}"></p>
 	
 	<label for="birthdate">生年月日:</label>
-	<input type="date" id="birthday" th:field="*{birthday}"><br><br>
+	<input type="date" id="birthday" th:field="*{birthday}" ><br><br>
 	<p th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></p>
 	
 	<label for="phone">電話番号:</label>
-	<input type="text" id="phone" th:field="*{phone}"><br><br>
+	<input type="text" id="phone" th:field="*{phone}" placeholder="例：090-9999-9999"><br><br>
     <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
 	
+	<label for="postalCode">郵便番号:</label>
+	<input type="text" id="postalCode" th:field="*{postalCode}" placeholder="例：811-3221"><br><br>
+	<p th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}"></p>
+	
 	<label for="address">住所:</label>
-	<input type="text" id="address" th:field="*{address}"><br><br>
+	<input type="text" id="address" th:field="*{address}" placeholder="例：福岡県福津市若木台〇〇〇〇"><br><br>
 	<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
 		
     <label for="email">メールアドレス:</label>
-    <input type="email" id="email" th:field="*{email}"><br><br>
+    <input type="email" id="email" th:field="*{email}" placeholder="例：×××××＠×××.com"><br><br>
 	<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 	
     <label for="date">祈願希望日時:</label>
@@ -55,8 +59,9 @@
 	<p th:if="${#fields.hasErrors('prayerType')}" th:errors="*{prayerType}"></p>
 	<br><br>
 
-	<label for="note">その他事前にお伝え頂ける内容があればこちらにご記入ください:</label><br>
-	<textarea id="note" th:field="*{note}" rows="4" cols="50"></textarea>
+	<label for="note">備考（記載方法が不明の際はご相談ください）:</label><br>
+	<textarea id="note" th:field="*{note}" rows="4" cols="100" 
+	placeholder="例：海上安全の祈願をお願いします、船名は「〇〇丸です」&#10;例：初宮にて参拝します親　〇〇太郎・〇〇花子&#10;例：代理参拝となります、参拝者　〇〇良子　電話番号090‐9999‐9999"></textarea>
 	<p th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></p>
 	<br><br>
     <button type="submit">予約する</button>

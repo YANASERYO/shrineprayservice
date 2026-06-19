@@ -6,6 +6,7 @@ public class Reservation {
 	private String kana;
 	private String birthday;
 	private String phone;
+	private String postalCode;
 	private String address;
 	private String email;
 	private String preferredDate;
@@ -17,11 +18,12 @@ public class Reservation {
 	}
 	
 //	引数ありのコンストラクタ
-	public Reservation(String name, String kana,String birthday, String phone,String address, String email, String preferredDate, String prayerType, String note) {
+	public Reservation(String name, String kana,String birthday, String phone,String postalCode,String address, String email, String preferredDate, String prayerType, String note) {
         this.name = name;
         this.kana = kana;
         this.birthday = birthday;
         this.phone = phone;
+        this.postalCode = postalCode;
         this.address = address;
         this.email = email;
         this.preferredDate = preferredDate;
@@ -44,6 +46,10 @@ public class Reservation {
 //	電話番号
 	public String getPhone() {return phone;}
 	public void setPhone(String phone) {this.phone = phone;}
+	
+//	郵便番号
+	public String getPostalCode() {return postalCode;}
+	public void setPostalCode(String postalCode) {this.postalCode = postalCode;}
 
 //	住所
 	public String getAddress() {return address;}

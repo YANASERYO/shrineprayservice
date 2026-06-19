@@ -17,6 +17,9 @@ public class ReservationForm {
 	@NotBlank(message = "電話番号は必須です")
 	private String phone;
 	
+	@NotBlank(message = "郵便番号は必須です")
+	private String postalCode;
+	
 	@NotBlank(message = "住所は必須です")
 	private String address;
 	
@@ -44,6 +47,9 @@ public class ReservationForm {
 
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
+    
+    public String getPostalCode() { return postalCode; }
+    public void setPostalCode(String postalCode) { this.postalCode = postalCode; }
 
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
