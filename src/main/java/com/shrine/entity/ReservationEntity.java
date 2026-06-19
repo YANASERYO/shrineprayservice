@@ -2,6 +2,11 @@
 
 package com.shrine.entity;
 
+import java.time.LocalDate;
+import java.time.chrono.JapaneseDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -66,5 +71,24 @@ public class ReservationEntity {
     
     public String getPrayedAt() { return prayedAt; }
     public void setPrayedAt(String prayedAt) { this.prayedAt = prayedAt;}
+    
+    //一覧表示でのみ西暦を和暦に変換する
+    public String getBirthdayWareki() {
+        if (birthday == null || birthday.isBlank()) {
+            return "";
+        }
+
+        try {
+            LocalDate date = LocalDate.parse(birthday);
+            JapaneseDate japaneseDate = JapaneseDate.from(date);
+
+            DateTimeFormatter formatter =
+                    DateTimeFormatter.ofPattern("Gy年M月d日", Locale.JAPAN);
+
+            return formatter.format(japaneseDate);
+        } catch (Exception e) {
+            return birthday;
+        }
+    }
     		
 }

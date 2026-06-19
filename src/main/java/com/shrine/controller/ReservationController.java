@@ -38,7 +38,7 @@ public class ReservationController {
     }
     
 //    一覧表示用
-    @GetMapping("/reservations")
+    @GetMapping("/admin/reservations")
     public String listReservations(
     		//一覧表示にフィルタリングを適応するためのRP
     		@RequestParam(defaultValue = "today") String filter,
@@ -90,7 +90,7 @@ public class ReservationController {
     	return "reservation/complete";
     }
     
-    @GetMapping("/reservations/{id}")
+    @GetMapping("/admin/reservations/{id}")
     public String viewReservation(@PathVariable Long id, Model model) {
     			ReservationEntity reservation = reservationService.findReservationById(id);
 		if (reservation == null) {
@@ -151,10 +151,10 @@ public class ReservationController {
 	}
     
     //祈願済にする
-    @PostMapping("/reservations/{id}/pray")
+    @PostMapping("/admin/reservations/{id}/pray")
 	public String markAsPrayed(@PathVariable Long id) {
     		reservationService.markAsPrayed(id);
-    				return "redirect:/reservations";
+    				return "redirect:/admin/reservations";
     }
 		
 }
