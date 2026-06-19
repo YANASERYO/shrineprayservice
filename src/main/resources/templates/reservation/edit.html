@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>祈願予約フォーム</title>
+</head>
+<body>
+<h1>祈願予約フォーム</h1>
+
+<form th:action="@{/reservations/{id}/update(id=${reservation.id})}" method="post">
+    <label for="name">名前:</label>
+    <input type="text" id="name" name="name" th:value="${reservation.name}"><br><br>
+	
+	<label for="kana">かな:</label>
+	<input type="text" id="kana" name="kana" th:value="${reservation.kana}"><br><br>
+	
+	<label for="birthdate">生年月日:</label>
+	<input type="date" id="birthday" name="birthday" th:value="${reservation.birthday}"><br><br>
+	
+	<label for="phone">電話番号:</label>
+	<input type="text" id="phone" name="phone" th:value="${reservation.phone}"><br><br>
+	
+	<label for="address">住所:</label>
+	<input type="text" id="address" name="address" th:value="${reservation.address}"><br><br>
+	
+    <label for="email">メールアドレス:</label>
+    <input type="email" id="email" name="email" th:value="${reservation.email}"><br><br>
+
+    <label for="date">祈願希望日時:</label>
+    <input type="date" id="preferredDate" name="preferredDate" th:value="${reservation.preferredDate}"><br><br>
+
+    <label for="prayerType">祈願の種類:</label>
+    <select id="prayerType" name="prayerType" required>
+		<option value="">選択してください</option>
+		        <option value="無病息災" th:selected="${reservation.prayerType == '無病息災'}">無病息災</option>
+		        <option value="恋愛成就" th:selected="${reservation.prayerType == '恋愛成就'}">恋愛成就</option>
+		        <option value="家内安全" th:selected="${reservation.prayerType == '家内安全'}">家内安全</option>
+				<option value="商売繁盛" th:selected="${reservation.prayerType == '商売繁盛'}">商売繁盛</option>
+				<option value="学業成就" th:selected="${reservation.prayerType == '学業成就'}">学業成就</option>
+				<option value="交通安全" th:selected="${reservation.prayerType == '交通安全'}">交通安全</option>
+				<option value="開運厄除" th:selected="${reservation.prayerType == '開運厄除'}">開運厄除</option>
+				<option value="子宝祈願" th:selected="${reservation.prayerType == '子宝祈願'}">子宝祈願</option>
+				<option value="結婚祈願" th:selected="${reservation.prayerType == '結婚祈願'}">結婚祈願</option>
+				<option value="長寿祈願" th:selected="${reservation.prayerType == '長寿祈願'}">長寿祈願</option>
+				<option value="その他" th:selected="${reservation.prayerType == 'その他'}">その他（備考に記載下さい）</option>
+		</select><br><br>
+
+    </select><br><br>
+	<textarea id="note" name="note" rows="4" cols="50" th:text="${reservation.note}"></textarea><br><br>
+	<button type="submit">更新</button>
+</form>
+
+</body>
+</html>

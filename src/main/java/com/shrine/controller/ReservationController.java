@@ -97,4 +97,45 @@ public class ReservationController {
 		return "redirect:/reservations"; // 削除後に予約一覧ページへリダイレクト
 	}
     
+    @GetMapping("/reservations/{id}/edit")
+    public String showEditForm(@PathVariable Long id, Model model) {
+    			ReservationEntity reservation = reservationService.findReservationById(id);
+    					if (reservation == null) {
+    						return "error/404"; // 予約が見つからない場合のエラーページ
+    					}
+    					model.addAttribute("reservation", reservation);
+    					return "reservation/edit"; // 予約編集ページのテンプレート名
+    }
+    
+    @PostMapping("/reservations/{id}/update")
+    public String updateReservation(
+			@PathVariable Long id,
+			@RequestParam String name,
+			@RequestParam String kana,
+			@RequestParam String birthday,
+			@RequestParam String phone,
+			@RequestParam String address,
+			@RequestParam String email,
+			@RequestParam String preferredDate,
+			@RequestParam String prayerType,
+			@RequestParam(required = false) String note,
+			Model model) {
+		
+		Reservation updatedReservation = new Reservation();
+		
+		updatedReservation.setName(name);
+		updatedReservation.setKana(kana);
+		updatedReservation.setBirthday(birthday);
+		updatedReservation.setPhone(phone);
+		updatedReservation.setAddress(address);
+		updatedReservation.setEmail(email);
+		updatedReservation.setPreferredDate(preferredDate);
+		updatedReservation.setPrayerType(prayerType);
+		updatedReservation.setNote(note);
+		
+		reservationService.updateReservation(id, updatedReservation);
+		
+		return "redirect:/reservations/" + id; // 更新後に予約詳細ページへリダイレクト
+	}				
 }
+    

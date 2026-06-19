@@ -54,4 +54,23 @@ public class ReservationService {
 		reservationRepository.deleteById(id);
 	}
 	
+//	更新したい予約IDと、新しい予約情報を受け取る
+	public ReservationEntity updateReservation(Long id, Reservation updatedReservation) {
+		ReservationEntity existingReservation = reservationRepository.findById(id).orElse(null);
+		if (existingReservation != null) {
+			existingReservation.setName(updatedReservation.getName());
+			existingReservation.setKana(updatedReservation.getKana());
+			existingReservation.setBirthday(updatedReservation.getBirthday());
+			existingReservation.setPhone(updatedReservation.getPhone());
+			existingReservation.setAddress(updatedReservation.getAddress());
+			existingReservation.setEmail(updatedReservation.getEmail());
+			existingReservation.setPreferredDate(updatedReservation.getPreferredDate());
+			existingReservation.setPrayerType(updatedReservation.getPrayerType());
+			existingReservation.setNote(updatedReservation.getNote());
+			
+			return reservationRepository.save(existingReservation);
+		}
+		return null;
+	}
+	
 }
