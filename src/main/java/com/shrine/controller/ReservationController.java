@@ -1,16 +1,20 @@
 package com.shrine.controller;
 
+import jakarta.validation.Valid;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shrine.entity.ReservationEntity;
+import com.shrine.form.ReservationForm;
 import com.shrine.model.Reservation;
 import com.shrine.service.ReservationService;
-
 
 @Controller
 public class ReservationController {
@@ -28,7 +32,8 @@ public class ReservationController {
 	}
 
     @GetMapping("/reservations/new")
-    public String showForm() {
+    public String showForm(Model model) {
+    		model.addAttribute("reservationForm", new ReservationForm());
         return "reservation/form";
     }
     
@@ -41,43 +46,40 @@ public class ReservationController {
 
     @PostMapping("/reservations")
     public String createReservation(
-    		@RequestParam String name,
-        @RequestParam String kana,
-        @RequestParam String birthday,
-        @RequestParam String phone,
-        @RequestParam String address,
-        @RequestParam String email,
-        @RequestParam String preferredDate,
-        @RequestParam String prayerType,
-        @RequestParam(required = false) String note,
-        Model model) {
+    		@Valid @ModelAttribute("reservationForm") ReservationForm reservationForm,
+    		BindingResult bindingResult,
+    		Model model) {
+    	
+    	if(bindingResult.hasErrors()) {
+    		return "reservation/form";
+    	}
     	
     	Reservation reservation = new Reservation();
     	
-    	reservation.setName(name);
-    	reservation.setKana(kana);
-    	reservation.setBirthday(birthday);
-    	reservation.setPhone(phone);
-    	reservation.setAddress(address);
-    	reservation.setEmail(email);
-    	reservation.setPreferredDate(preferredDate);
-    	reservation.setPrayerType(prayerType);
-    	reservation.setNote(note);
+    	reservation.setName(reservationForm.getName());
+    	reservation.setKana(reservationForm.getKana());
+    	reservation.setBirthday(reservationForm.getBirthday());
+    	reservation.setPhone(reservationForm.getPhone());
+    	reservation.setAddress(reservationForm.getAddress());
+    	reservation.setEmail(reservationForm.getEmail());
+    	reservation.setPreferredDate(reservationForm.getPreferredDate());
+    	reservation.setPrayerType(reservationForm.getPrayerType());
+    	reservation.setNote(reservationForm.getNote());
     	
     	ReservationEntity savedReservation = reservationService.createReservation(reservation);
-        	
-    		model.addAttribute("reservationId", savedReservation.getId());
     	
-        	model.addAttribute("name", name);
-        model.addAttribute("kana", kana);
-        model.addAttribute("birthday", birthday);
-        model.addAttribute("phone", phone);
-        model.addAttribute("address", address);
-        model.addAttribute("email", email);
-        model.addAttribute("preferredDate", preferredDate);
-        model.addAttribute("prayerType", prayerType);
-        model.addAttribute("note", note);
-        return "reservation/complete";
+    	model.addAttribute("reservationId", savedReservation.getId());
+    	model.addAttribute("name", savedReservation.getName());
+    	model.addAttribute("kana", savedReservation.getKana());
+    	model.addAttribute("birthday", savedReservation.getBirthday());
+    	model.addAttribute("phone", savedReservation.getPhone());
+    	model.addAttribute("address", savedReservation.getAddress());
+    	model.addAttribute("email", savedReservation.getEmail());
+    	model.addAttribute("preferredDate", savedReservation.getPreferredDate());
+    	model.addAttribute("prayerType", savedReservation.getPrayerType());
+    	model.addAttribute("note", savedReservation.getNote());
+    	
+    	return "reservation/complete";
     }
     
     @GetMapping("/reservations/{id}")

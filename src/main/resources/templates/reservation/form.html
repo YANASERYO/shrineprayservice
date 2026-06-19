@@ -7,31 +7,38 @@
 <body>
 <h1>祈願予約フォーム</h1>
 
-<form action="/reservations" method="post">
+<form th:action="@{/reservations}" th:object="${reservationForm}" method="post">
     <label for="name">名前:</label>
-    <input type="text" id="name" name="name" required><br><br>
+    <input type="text" id="name" th:field="*{name}"><br><br>
+	<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 	<p>初宮・代理参拝の方は、備考に詳細をご記入ください。</p>
 	
 	<label for="kana">かな:</label>
-	<input type="text" id="kana" name="kana" required><br><br>
+	<input type="text" id="kana" th:field="*{kana}"><br><br>
+	<p th:if="${#fields.hasErrors('kana')}" th:errors="*{kana}"></p>
 	
 	<label for="birthdate">生年月日:</label>
-	<input type="date" id="birthday" name="birthday" required><br><br>
+	<input type="date" id="birthday" th:field="*{birthday}"><br><br>
+	<p th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></p>
 	
 	<label for="phone">電話番号:</label>
-	<input type="text" id="phone" name="phone" required><br><br>
+	<input type="text" id="phone" th:field="*{phone}"><br><br>
+    <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
 	
 	<label for="address">住所:</label>
-	<input type="text" id="address" name="address" required><br><br>
-	
+	<input type="text" id="address" th:field="*{address}"><br><br>
+	<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
+		
     <label for="email">メールアドレス:</label>
-    <input type="email" id="email" name="email" required><br><br>
-
+    <input type="email" id="email" th:field="*{email}"><br><br>
+	<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+	
     <label for="date">祈願希望日時:</label>
-    <input type="date" id="preferredDate" name="preferredDate" required><br><br>
-
+    <input type="date" id="preferredDate" th:field="*{preferredDate}"><br><br>
+	<p th:if="${#fields.hasErrors('preferredDate')}" th:errors="*{preferredDate}"></p>
+	
     <label for="prayerType">祈願の種類:</label>
-    <select id="prayerType" name="prayerType" required>
+    <select id="prayerType" th:field="*{prayerType}">
         <option value="">選択してください</option>
         <option value="無病息災">無病息災</option>
         <option value="恋愛成就">恋愛成就</option>
@@ -44,10 +51,14 @@
 		<option value="結婚祈願">結婚祈願</option>
 		<option value="長寿祈願">長寿祈願</option>
 		<option value="その他">その他（備考に記載下さい）</option>
-    </select><br><br>
+    </select>
+	<p th:if="${#fields.hasErrors('prayerType')}" th:errors="*{prayerType}"></p>
+	<br><br>
 
 	<label for="note">その他事前にお伝え頂ける内容があればこちらにご記入ください:</label><br>
-	<textarea id="note" name="note" rows="4" cols="50"></textarea><br><br>
+	<textarea id="note" th:field="*{note}" rows="4" cols="50"></textarea>
+	<p th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></p>
+	<br><br>
     <button type="submit">予約する</button>
 	
 </form>
