@@ -1,5 +1,6 @@
 package com.shrine.controller;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -42,7 +43,11 @@ public class ReservationController {
     public String listReservations(
     		//一覧表示にフィルタリングを適応するためのRP
     		@RequestParam(defaultValue = "today") String filter,
-    		Model model) {
+    		Model model,HttpSession session) {
+    	
+    		if (session.getAttribute("loginUser") == null) {
+    	    return "redirect:/login";
+    		}
     	
 		model.addAttribute("reservations", reservationService.findReservationsByFilter(filter));
 		model.addAttribute("filter", filter);
@@ -91,9 +96,15 @@ public class ReservationController {
     }
     
     @GetMapping("/admin/reservations/{id}")
-    public String viewReservation(@PathVariable Long id, Model model) {
-    			ReservationEntity reservation = reservationService.findReservationById(id);
-		if (reservation == null) {
+    public String viewReservation(@PathVariable Long id, Model model,HttpSession session) {
+    			
+    		if (session.getAttribute("loginUser") == null) {
+    		    return "redirect:/login";
+    		}
+    		
+    		ReservationEntity reservation = reservationService.findReservationById(id);
+    		
+    		if (reservation == null) {
 			return "error/404"; // 予約が見つからない場合のエラーページ
 		}
 		model.addAttribute("reservation", reservation);
@@ -102,14 +113,21 @@ public class ReservationController {
     
     
     @PostMapping("/admin/reservations/{id}/delete")
-    public String deleteReservation(@PathVariable Long id) {
+    public String deleteReservation(@PathVariable Long id,HttpSession session) {
+    		if (session.getAttribute("loginUser") == null) {
+            return "redirect:/login";
+        }
 		reservationService.deleteReservation(id);
-		return "redirect:/reservations"; // 削除後に予約一覧ページへリダイレクト
+		return "redirect:/admin/reservations"; // 削除後に予約一覧ページへリダイレクト
 	}
     
-    @GetMapping("/admin/admin/reservations/{id}/edit")
-    public String showEditForm(@PathVariable Long id, Model model) {
+    @GetMapping("/admin/reservations/{id}/edit")
+    public String showEditForm(@PathVariable Long id, Model model,HttpSession session) {
     			ReservationEntity reservation = reservationService.findReservationById(id);
+    		if (session.getAttribute("loginUser") == null) {
+        		return "redirect:/login";
+        }
+    			
     		if (reservation == null) {
     			return "error/404"; // 予約が見つからない場合のエラーページ
     		}
@@ -130,7 +148,11 @@ public class ReservationController {
 			@RequestParam String preferredDate,
 			@RequestParam String prayerType,
 			@RequestParam(required = false) String note,
-			Model model) {
+			Model model,
+			HttpSession session) {
+    		if (session.getAttribute("loginUser") == null) {
+            return "redirect:/login";
+        }
 		
 		Reservation updatedReservation = new Reservation();
 		
@@ -152,7 +174,10 @@ public class ReservationController {
     
     //祈願済にする
     @PostMapping("/admin/reservations/{id}/pray")
-	public String markAsPrayed(@PathVariable Long id) {
+	public String markAsPrayed(@PathVariable Long id,HttpSession session) {
+    		if (session.getAttribute("loginUser") == null) {
+            return "redirect:/login";
+        }
     		reservationService.markAsPrayed(id);
     				return "redirect:/admin/reservations";
     }
