@@ -2,16 +2,25 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>管理メニュー</title>
+    <title>職員メニュー</title>
 </head>
 <body>
-    <h1>管理メニュー</h1>
+    <h1>職員メニュー</h1>
 
-    <ul>
-        <li><a href="/admin/reservations">祈願予約管理</a></li>
-<!--        今後追加していく-->
+	<ul>
+<!--		仮-->
+		<li><a href="/admin/reservations">祈願予約管理</a></li>
+		<li><a href="#">お祭り・行事出席管理</a></li>
+		<li><a href="#">授与品郵送受付管理</a></li>
+		<li><a href="#">スケジュール管理</a></li>
+		<li><a href="#">在庫管理</a></li>
+		<li><a href="#">帳簿管理</a></li>
+		<li><a href="#">崇敬者・参拝者管理</a></li>
+<!--		<li th:if="${session.loginUser.admin}"><a href="#">職員アカウント管理</a></li>-->
     </ul>
 
     <p><a href="/reservations/new">一般予約フォームへ</a></p>
+<!--	将来的にログアウトにする-->
+	<p><a href="/">トップへ</a></p>
 </body>
 </html>

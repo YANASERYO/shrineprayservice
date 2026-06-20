@@ -101,23 +101,23 @@ public class ReservationController {
     }
     
     
-    @PostMapping("/reservations/{id}/delete")
+    @PostMapping("/admin/reservations/{id}/delete")
     public String deleteReservation(@PathVariable Long id) {
 		reservationService.deleteReservation(id);
 		return "redirect:/reservations"; // 削除後に予約一覧ページへリダイレクト
 	}
     
-    @GetMapping("/reservations/{id}/edit")
+    @GetMapping("/admin/admin/reservations/{id}/edit")
     public String showEditForm(@PathVariable Long id, Model model) {
     			ReservationEntity reservation = reservationService.findReservationById(id);
-    					if (reservation == null) {
-    						return "error/404"; // 予約が見つからない場合のエラーページ
-    					}
-    					model.addAttribute("reservation", reservation);
-    					return "reservation/edit"; // 予約編集ページのテンプレート名
+    		if (reservation == null) {
+    			return "error/404"; // 予約が見つからない場合のエラーページ
+    		}
+    		model.addAttribute("reservation", reservation);
+    		return "reservation/edit"; // 予約編集ページのテンプレート名
     }
     
-    @PostMapping("/reservations/{id}/update")
+    @PostMapping("/admin/reservations/{id}/update")
     public String updateReservation(
 			@PathVariable Long id,
 			@RequestParam String name,
@@ -147,7 +147,7 @@ public class ReservationController {
 		
 		reservationService.updateReservation(id, updatedReservation);
 		
-		return "redirect:/reservations/" + id; // 更新後に予約詳細ページへリダイレクト
+		return "redirect:/admin/reservations/" + id; // 更新後に予約詳細ページへリダイレクト
 	}
     
     //祈願済にする

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>職員ログイン</title>
+</head>
+<body>
+
+<h1>職員ログイン</h1>
+
+<p th:if="${errorMsg}" th:text="${errorMsg}"></p>
+
+<form action="/login" method="post">
+    <label for="userId">職員ID:</label>
+    <input type="text" id="userId" name="userId"><br><br>
+
+    <label for="password">パスワード:</label>
+    <input type="password" id="password" name="password"><br><br>
+
+    <button type="submit">ログイン</button>
+</form>
+
+<p><a href="/">トップページへ戻る</a></p>
+
+</body>
+</html>

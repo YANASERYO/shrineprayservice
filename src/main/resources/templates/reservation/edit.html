@@ -7,7 +7,7 @@
 <body>
 <h1>祈願予約フォーム</h1>
 
-<form th:action="@{/reservations/{id}/update(id=${reservation.id})}" method="post">
+<form th:action="@{/admin/reservations/{id}/update(id=${reservation.id})}" method="post">
     <label for="name">名前:</label>
     <input type="text" id="name" name="name" th:value="${reservation.name}"><br><br>
 	
@@ -46,7 +46,6 @@
 				<option value="結婚祈願" th:selected="${reservation.prayerType == '結婚祈願'}">結婚祈願</option>
 				<option value="長寿祈願" th:selected="${reservation.prayerType == '長寿祈願'}">長寿祈願</option>
 				<option value="その他" th:selected="${reservation.prayerType == 'その他'}">その他（備考に記載下さい）</option>
-		</select><br><br>
 
     </select><br><br>
 	<textarea id="note" name="note" rows="4" cols="50" th:text="${reservation.note}"></textarea><br><br>
