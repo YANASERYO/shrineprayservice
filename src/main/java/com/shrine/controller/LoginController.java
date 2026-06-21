@@ -34,7 +34,7 @@ public class LoginController {
 	    if ("staff".equals(userId) && "staff1234".equals(password)) {
 	        LoginUser loginUser = new LoginUser(userId, "STAFF");
 	        session.setAttribute("loginUser", loginUser);
-	        return "redirect:/admin";
+	        return "redirect:/staff";
 	    }
 
 	    model.addAttribute("errorMsg", "IDまたはパスワードが違います");

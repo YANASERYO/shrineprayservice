@@ -10,10 +10,10 @@
     <a href="/reservations/new">新しい予約を登録</a>
 </p>
 <p>
-    <a th:href="@{/admin/reservations(filter='today')}">今日の未祈願</a> |
-    <a th:href="@{/admin/reservations(filter='future')}">翌日以降の未祈願</a> |
-    <a th:href="@{/admin/reservations(filter='prayed')}">祈願済み</a> |
-    <a th:href="@{/admin/reservations(filter='all')}">全部</a>
+    <a th:href="@{/staff/reservations(filter='today')}">今日の未祈願</a> |
+    <a th:href="@{/staff/reservations(filter='future')}">翌日以降の未祈願</a> |
+    <a th:href="@{/staff/reservations(filter='prayed')}">祈願済み</a> |
+    <a th:href="@{/staff/reservations(filter='all')}">全部</a>
 </p>
 <table border="1">
     <tr>
@@ -48,13 +48,13 @@
 		<td th:text="${reservation.prayed ? '祈願済み' : '未祈願'}"></td>
 		<td>
 			<form th:if="${!reservation.prayed}"
-				th:action="@{/admin/reservations/{id}/pray(id=${reservation.id})}"
+				th:action="@{/staff/reservations/{id}/pray(id=${reservation.id})}"
 				method="post">
 				<button type="submit">祈願済にする</button>
 			</form>
 			<span th:if="${reservation.prayed}">完了</span>
 		</td>
-		<td><a th:href="@{/admin/reservations/{id}(id=${reservation.id})}">詳細</a></td>
+		<td><a th:href="@{/staff/reservations/{id}(id=${reservation.id})}">詳細</a></td>
     </tr>
 </table>
 </body>

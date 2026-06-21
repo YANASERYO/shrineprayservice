@@ -39,7 +39,7 @@ public class ReservationController {
     }
     
 //    一覧表示用
-    @GetMapping("/admin/reservations")
+    @GetMapping("/staff/reservations")
     public String listReservations(
     		//一覧表示にフィルタリングを適応するためのRP
     		@RequestParam(defaultValue = "today") String filter,
@@ -95,7 +95,7 @@ public class ReservationController {
     	return "reservation/complete";
     }
     
-    @GetMapping("/admin/reservations/{id}")
+    @GetMapping("/staff/reservations/{id}")
     public String viewReservation(@PathVariable Long id, Model model,HttpSession session) {
     			
     		if (session.getAttribute("loginUser") == null) {
@@ -112,21 +112,23 @@ public class ReservationController {
     }
     
     
-    @PostMapping("/admin/reservations/{id}/delete")
+    @PostMapping("/staff/reservations/{id}/delete")
     public String deleteReservation(@PathVariable Long id,HttpSession session) {
     		if (session.getAttribute("loginUser") == null) {
             return "redirect:/login";
         }
 		reservationService.deleteReservation(id);
-		return "redirect:/admin/reservations"; // 削除後に予約一覧ページへリダイレクト
+		return "redirect:/staff/reservations"; // 削除後に予約一覧ページへリダイレクト
 	}
     
-    @GetMapping("/admin/reservations/{id}/edit")
+    @GetMapping("/staff/reservations/{id}/edit")
     public String showEditForm(@PathVariable Long id, Model model,HttpSession session) {
-    			ReservationEntity reservation = reservationService.findReservationById(id);
+    		
     		if (session.getAttribute("loginUser") == null) {
         		return "redirect:/login";
         }
+    		
+    		ReservationEntity reservation = reservationService.findReservationById(id);
     			
     		if (reservation == null) {
     			return "error/404"; // 予約が見つからない場合のエラーページ
@@ -135,7 +137,7 @@ public class ReservationController {
     		return "reservation/edit"; // 予約編集ページのテンプレート名
     }
     
-    @PostMapping("/admin/reservations/{id}/update")
+    @PostMapping("/staff/reservations/{id}/update")
     public String updateReservation(
 			@PathVariable Long id,
 			@RequestParam String name,
@@ -169,17 +171,17 @@ public class ReservationController {
 		
 		reservationService.updateReservation(id, updatedReservation);
 		
-		return "redirect:/admin/reservations/" + id; // 更新後に予約詳細ページへリダイレクト
+		return "redirect:/staff/reservations/" + id; // 更新後に予約詳細ページへリダイレクト
 	}
     
     //祈願済にする
-    @PostMapping("/admin/reservations/{id}/pray")
+    @PostMapping("/staff/reservations/{id}/pray")
 	public String markAsPrayed(@PathVariable Long id,HttpSession session) {
     		if (session.getAttribute("loginUser") == null) {
             return "redirect:/login";
         }
     		reservationService.markAsPrayed(id);
-    				return "redirect:/admin/reservations";
+    				return "redirect:/staff/reservations";
     }
 		
 }
