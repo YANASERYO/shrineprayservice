@@ -32,6 +32,7 @@ public class ReservationEntity {
     private boolean prayed;
     //祈願日
     private String prayedAt;
+    private String addressKana;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -71,6 +72,9 @@ public class ReservationEntity {
     
     public String getPrayedAt() { return prayedAt; }
     public void setPrayedAt(String prayedAt) { this.prayedAt = prayedAt;}
+    
+    public String getAddressKana() {return addressKana;}
+    public void setAddressKana(String addressKana) {this.addressKana = addressKana;}
     
     //一覧表示でのみ西暦を和暦に変換する
     public String getBirthdayWareki() {

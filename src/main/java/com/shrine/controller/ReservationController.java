@@ -1,5 +1,7 @@
 package com.shrine.controller;
 
+import java.time.LocalDate;
+
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
@@ -74,9 +76,30 @@ public class ReservationController {
     	reservation.setPostalCode(reservationForm.getPostalCode().replace("-", ""));
     	reservation.setAddress(reservationForm.getAddress());
     	reservation.setEmail(reservationForm.getEmail());
-    	reservation.setPreferredDate(reservationForm.getPreferredDate());
+    
+    	LocalDate today = LocalDate.now();
+    	String preferredDateText = reservationForm.getPreferredDate();
+
+    	if (preferredDateText == null || preferredDateText.isBlank()) {
+    	    preferredDateText = today.toString();
+    	} else {
+    	    LocalDate preferredDate = LocalDate.parse(preferredDateText);
+
+    	    if (!preferredDate.isAfter(today)) {
+    	        bindingResult.rejectValue(
+    	            "preferredDate",
+    	            "error.preferredDate",
+    	            "ご予約は翌日以降となります"
+    	        );
+    	        return "reservation/form";
+    	    }
+    	}
+
+    	reservation.setPreferredDate(preferredDateText);
+    	
     	reservation.setPrayerType(reservationForm.getPrayerType());
     	reservation.setNote(reservationForm.getNote());
+    	reservation.setAddressKana(reservationForm.getAddressKana());
     	
     	ReservationEntity savedReservation = reservationService.createReservation(reservation);
     	
@@ -91,6 +114,7 @@ public class ReservationController {
     	model.addAttribute("preferredDate", savedReservation.getPreferredDate());
     	model.addAttribute("prayerType", savedReservation.getPrayerType());
     	model.addAttribute("note", savedReservation.getNote());
+    	model.addAttribute("addressKana", savedReservation.getAddressKana());
     	
     	return "reservation/complete";
     }
@@ -150,8 +174,10 @@ public class ReservationController {
 			@RequestParam String preferredDate,
 			@RequestParam String prayerType,
 			@RequestParam(required = false) String note,
+			@RequestParam(required = false) String addressKana,
+//			モデルは使わなくなったので消しても大丈夫
 			Model model,
-			HttpSession session) {
+			HttpSession session){
     		if (session.getAttribute("loginUser") == null) {
             return "redirect:/login";
         }
@@ -168,6 +194,7 @@ public class ReservationController {
 		updatedReservation.setPreferredDate(preferredDate);
 		updatedReservation.setPrayerType(prayerType);
 		updatedReservation.setNote(note);
+		updatedReservation.setAddressKana(addressKana);
 		
 		reservationService.updateReservation(id, updatedReservation);
 		

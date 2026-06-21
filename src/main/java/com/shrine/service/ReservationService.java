@@ -42,6 +42,7 @@ public class ReservationService {
 		entity.setNote(reservation.getNote());
 		entity.setPrayed(false);
 		entity.setPrayedAt(null);
+		entity.setAddressKana(reservation.getAddressKana());
 		
 		return reservationRepository.save(entity);
 		
@@ -75,6 +76,7 @@ public class ReservationService {
 			existingReservation.setPreferredDate(updatedReservation.getPreferredDate());
 			existingReservation.setPrayerType(updatedReservation.getPrayerType());
 			existingReservation.setNote(updatedReservation.getNote());
+			existingReservation.setAddressKana(updatedReservation.getAddressKana());
 			
 			return reservationRepository.save(existingReservation);
 		}

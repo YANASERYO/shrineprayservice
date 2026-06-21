@@ -7,7 +7,7 @@
 <body>
 <h1>祈願予約フォーム</h1>
 
-<form th:action="@{/admin/reservations/{id}/update(id=${reservation.id})}" method="post">
+<form th:action="@{/staff/reservations/{id}/update(id=${reservation.id})}" method="post">
     <label for="name">名前:</label>
     <input type="text" id="name" name="name" th:value="${reservation.name}"><br><br>
 	
@@ -21,10 +21,18 @@
 	<input type="text" id="phone" name="phone" th:value="${reservation.phone}"><br><br>
 	
 	<label for="postalCode">郵便番号:</label>
+	<p>
+		市区町村変更の際は郵便番号の自動入力を使用してください<br>
+		入力値によっては崇敬者管理の管理ができなくなる可能性があります
+	</p>
 	<input type="text" id="postalCode" name="postalCode" th:value="${reservation.postalCode}"><br><br>
+	
 	
 	<label for="address">住所:</label>
 	<input type="text" id="address" name="address" th:value="${reservation.address}"><br><br>
+	
+	<label for="addressKana">住所フリガナ:</label>
+	<input type="text" id="addressKana" name="addressKana" th:value="${reservation.addressKana}"><br><br>
 	
     <label for="email">メールアドレス:</label>
     <input type="email" id="email" name="email" th:value="${reservation.email}"><br><br>
@@ -50,7 +58,34 @@
     </select><br><br>
 	<textarea id="note" name="note" rows="4" cols="50" th:text="${reservation.note}"></textarea><br><br>
 	<button type="submit">更新</button>
-</form>
 
+</form>
+<script>
+//	郵便番号変更すると住所フリガナまで変更できる
+	document.getElementById("postalCode").addEventListener("blur",function(){
+		const postalCode = this.value;
+		
+		if(!postalCode){
+			return;
+		}
+		
+		fetch("/api/postal-code?postalCode=" + encodeURIComponent(postalCode))
+		.then(response => response.json())
+		.then(data=> {
+			if(data.length == 0){
+				return;
+			}
+//			住所を結合する
+			const address = data[0].prefecture + data[0].city + data[0].town;
+			const addressKana = data[0].prefectureKana + data[0].cityKana + data[0].townKana;
+			
+			document.getElementById("address").value = address;
+			document.getElementById("addressKana").value = addressKana;
+		})
+		.catch(error =>{
+			console.error("検索エラーです：",error);
+		});
+	});
+</script>
 </body>
 </html>

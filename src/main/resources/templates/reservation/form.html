@@ -9,9 +9,10 @@
 
 <form th:action="@{/reservations}" th:object="${reservationForm}" method="post">
     <label for="name">名前:</label>
+	<p>初宮・代理参拝の方は、備考に氏名等を追加でをご記入ください。</p>
     <input type="text" id="name" th:field="*{name}" placeholder="例：山田　太郎"><br><br>
 	<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-	<p>初宮・代理参拝の方は、備考に氏名等を追加でをご記入ください。</p>
+	
 	
 	<label for="kana">かな:</label>
 	<input type="text" id="kana" th:field="*{kana}" placeholder="例：やまだ　たろう"><br><br>
@@ -26,6 +27,7 @@
     <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
 	
 	<label for="postalCode">郵便番号:</label>
+	<p>郵便番号を入力すると町名まで自動入力されます</p>
 	<input type="text" id="postalCode" th:field="*{postalCode}" placeholder="例：811-3221"><br><br>
 	<p th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}"></p>
 	
@@ -37,7 +39,11 @@
     <input type="email" id="email" th:field="*{email}" placeholder="例：×××××＠×××.com"><br><br>
 	<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 	
-    <label for="date">祈願希望日時:</label>
+	<p>
+	    翌日以降の祈願をご希望の場合は、下記のカレンダーより日付を選択してください。
+	</p>
+	
+    <label for="date">祈願予約日（翌日以降）:</label>
     <input type="date" id="preferredDate" th:field="*{preferredDate}"><br><br>
 	<p th:if="${#fields.hasErrors('preferredDate')}" th:errors="*{preferredDate}"></p>
 	
@@ -66,6 +72,8 @@
 	<br><br>
     <button type="submit">予約する</button>
 	
+<!--	祝詞用、表示しないのでhidden-->
+	<input type="hidden" id="addressKana" th:field="*{addressKana}">
 </form>
 <script>
 //	カーソルから外れたら動く処理
@@ -84,13 +92,30 @@
 			}
 //			住所を結合する
 			const address = data[0].prefecture + data[0].city + data[0].town;
+			const addressKana = data[0].prefectureKana + data[0].cityKana + data[0].townKana;
 			
 			document.getElementById("address").value = address;
+			document.getElementById("addressKana").value = addressKana;
 		})
 		.catch(error =>{
 			console.error("検索エラーです：",error);
 		});
 	});
+</script>
+<script>
+//	祈願日を明日以降だけにする
+    const preferredDateInput = document.getElementById("preferredDate");
+
+    if (preferredDateInput) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+
+        const yyyy = tomorrow.getFullYear();
+        const mm = String(tomorrow.getMonth() + 1).padStart(2, "0");
+        const dd = String(tomorrow.getDate()).padStart(2, "0");
+
+        preferredDateInput.min = `${yyyy}-${mm}-${dd}`;
+    }
 </script>
 </body>
 </html>

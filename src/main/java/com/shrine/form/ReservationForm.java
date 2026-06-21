@@ -27,7 +27,7 @@ public class ReservationForm {
 	@Email(message = "メールアドレスの形式が正しくありません")
 	private String email;
 	
-	@NotBlank(message = "希望日は必須です")
+//	空の場合は当日受付として処理に変更
 	private String preferredDate;
 	
 	@NotBlank(message = "祈祷内容は必須です")
@@ -35,6 +35,9 @@ public class ReservationForm {
 	
 	@Size(max = 500, message = "備考は500文字以内で入力してください")
 	private String note;
+	
+//	祝詞用住所のフリガナ
+	private String addressKana;
 	
 	public String getName() { return name; }
     public void setName(String name) { this.name = name; }
@@ -65,6 +68,9 @@ public class ReservationForm {
 
     public String getNote() { return note; }
     public void setNote(String note) { this.note = note; }
+    
+    public String getAddressKana() {return addressKana;}
+    public void setAddressKana(String addressKana) {this.addressKana = addressKana;}
 }
 	
 	
