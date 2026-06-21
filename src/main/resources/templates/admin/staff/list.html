@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>職員アカウント管理</title>
+</head>
+<body>
+
+<h1>職員アカウント管理</h1>
+
+<p>
+    <a th:href="@{/admin}">管理者メニューへ戻る</a>
+</p>
+
+<p>
+    <a th:href="@{/admin/staff/new}">職員アカウント新規作成</a>
+</p>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>ログインID</th>
+            <th>職員名</th>
+            <th>権限</th>
+            <th>有効</th>
+            <th>作成日時</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="staff : ${staffList}">
+            <td th:text="${staff.id}"></td>
+            <td th:text="${staff.username}"></td>
+            <td th:text="${staff.staffName}"></td>
+            <td th:text="${staff.role}"></td>
+            <td th:text="${staff.enabled}"></td>
+            <td th:text="${staff.createdAt}"></td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

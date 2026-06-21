@@ -9,16 +9,16 @@
 <!--adminはアカウント管理のみに変更-->
 	<ul>
 <!--		仮-->
-		<li><a href="#">アカウント管理</a></li>
-		<li><a href="#">アカウント追加</a></li>
+		<li><a th:href="@{/admin/staff}">アカウント管理</a></li>
+		<li><a th:href="@{/admin/staff/new}">アカウント追加</a></li>
 		<li><a href="#">アカウント削除</a></li>
 		<li><a href="#">システム問い合わせ</a></li>
 		
 <!--		<li th:if="${session.loginUser.admin}"><a href="#">職員アカウント管理</a></li>-->
     </ul>
 
-    <p><a href="/reservations/new">一般予約フォームへ</a></p>
+    <p><a th:href="@{/reservations/new}">一般予約フォームへ</a></p>
 <!--	将来的にログアウトにする-->
-	<p><a href="/">トップへ</a></p>
+	<p><a th:href="@{/}">トップへ</a></p>
 </body>
 </html>

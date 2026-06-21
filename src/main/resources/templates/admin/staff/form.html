@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>職員アカウント新規作成</title>
+</head>
+<body>
+
+<h1>職員アカウント新規作成</h1>
+
+<p>
+    <a th:href="@{/admin/staff}">職員アカウント一覧へ戻る</a>
+</p>
+
+<form th:action="@{/admin/staff/create}" th:object="${staffAccountForm}" method="post">
+
+    <div>
+        <label for="username">ログインID</label><br>
+        <input type="text" id="username" th:field="*{username}">
+    </div>
+
+    <div>
+        <label for="password">パスワード</label><br>
+        <input type="password" id="password" th:field="*{password}">
+    </div>
+
+    <div>
+        <label for="staffName">職員名</label><br>
+        <input type="text" id="staffName" th:field="*{staffName}">
+    </div>
+
+    <p>
+        <button type="submit">登録</button>
+    </p>
+
+</form>
+
+</body>
+</html>
