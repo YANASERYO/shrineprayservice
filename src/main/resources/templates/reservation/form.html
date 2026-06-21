@@ -9,9 +9,9 @@
 
 <form th:action="@{/reservations}" th:object="${reservationForm}" method="post">
     <label for="name">名前:</label>
-    <input type="text" id="name" th:field="*{name}"　placeholder="例：山田　太郎"><br><br>
+    <input type="text" id="name" th:field="*{name}" placeholder="例：山田　太郎"><br><br>
 	<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
-	<p>初宮・代理参拝の方は、備考に詳細をご記入ください。</p>
+	<p>初宮・代理参拝の方は、備考に氏名等を追加でをご記入ください。</p>
 	
 	<label for="kana">かな:</label>
 	<input type="text" id="kana" th:field="*{kana}" placeholder="例：やまだ　たろう"><br><br>
@@ -67,6 +67,30 @@
     <button type="submit">予約する</button>
 	
 </form>
-
+<script>
+//	カーソルから外れたら動く処理
+	document.getElementById("postalCode").addEventListener("blur",function(){
+		const postalCode = this.value;
+		
+		if(!postalCode){
+			return;
+		}
+		
+		fetch("/api/postal-code?postalCode=" + encodeURIComponent(postalCode))
+		.then(response => response.json())
+		.then(data=> {
+			if(data.length == 0){
+				return;
+			}
+//			住所を結合する
+			const address = data[0].prefecture + data[0].city + data[0].town;
+			
+			document.getElementById("address").value = address;
+		})
+		.catch(error =>{
+			console.error("検索エラーです：",error);
+		});
+	});
+</script>
 </body>
 </html>
