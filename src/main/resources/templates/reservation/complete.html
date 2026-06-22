@@ -1,59 +1,91 @@
 <!DOCTYPE html>
-<!--Thymeleafを記載すること-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/reservation/reservation-complete.css}">
+<link rel="stylesheet" th:href="@{/css/responsive.css}">
+
 <title>予約完了</title>
 </head>
 <body>
-<h1>予約を受け付けました</h1>
-<!--EL式で記述-->
-<table border="1">
-<tr>
-	<th>予約番号</th>
-	<td th:text="${reservationId}"></td>
-</tr>
-<tr>
-    <th>名前</th>
-    <td th:text="${name}"></td>
-</tr>
-<tr>
-    <th>かな</th>
-    <td th:text="${kana}"></td>
-</tr>
-<tr>
-    <th>生年月日</th>
-    <td th:text="${birthday}"></td>
-</tr>
-    <th>電話番号</th>
-    <td th:text="${phone}"></td>
-</tr>
-<tr>
-	<th>郵便番号</th>
-    <td th:text="${postalCode}"></td>
-</tr>
-<tr>
-    <th>住所</th>
-    <td th:text="${address}"></td>
-</tr>
-    <th>メールアドレス</th>
-    <td th:text="${email}"></td>
-</tr>
-<tr>
-    <th>祈願希望日</th>     
-	<td th:text="${preferredDate}"></td>
-</tr>
-<tr>
-    <th>祈願の種類</th>
-    <td th:text="${prayerType}"></td>
-</tr>
-<tr>
-    <th>備考</th>
-    <td th:text="${note}"></td>
-</tr>
-</table><br>
-<a href="/reservations/new">確認後、こちらをタップして初期画面に移行してください</a>
+
+<main class="main-container">
+
+    <h1>予約を受け付けました</h1>
+
+    <p class="complete-notice">
+        画面のスクリーンショット、又は予約番号を必ずお控えください。
+    </p>
+
+    <div class="complete-box">
+
+        <div class="complete-row">
+            <div class="complete-label">予約番号</div>
+            <div class="complete-value" th:text="${reservationId}"></div>
+        </div>
+
+        <div class="complete-row">
+            <div class="complete-label">名前</div>
+            <div class="complete-value" th:text="${name}"></div>
+        </div>
+
+        <div class="complete-row">
+            <div class="complete-label">かな</div>
+            <div class="complete-value" th:text="${kana}"></div>
+        </div>
+
+        <div class="complete-row">
+            <div class="complete-label">生年月日</div>
+            <div class="complete-value" th:text="${birthday}"></div>
+        </div>
+
+        <div class="complete-row">
+            <div class="complete-label">電話番号</div>
+            <div class="complete-value" th:text="${phone}"></div>
+        </div>
+
+        <div class="complete-row">
+            <div class="complete-label">郵便番号</div>
+            <div class="complete-value" th:text="${postalCode}"></div>
+        </div>
+
+        <div class="complete-row">
+            <div class="complete-label">住所</div>
+            <div class="complete-value" th:text="${address}"></div>
+        </div>
+
+        <div class="complete-row">
+            <div class="complete-label">メールアドレス</div>
+            <div class="complete-value" th:text="${email}"></div>
+        </div>
+
+        <div class="complete-row">
+            <div class="complete-label">祈願希望日</div>
+            <div class="complete-value" th:text="${preferredDate}"></div>
+        </div>
+
+        <div class="complete-row">
+            <div class="complete-label">祈願の種類</div>
+            <div class="complete-value" th:text="${prayerType}"></div>
+        </div>
+
+        <div class="complete-row">
+            <div class="complete-label">備考</div>
+            <div class="complete-value" th:text="${note}"></div>
+        </div>
+
+        <div class="complete-actions">
+            <a class="complete-link" th:href="@{/reservations/new}">
+                確認後、こちらをタップして初期画面に戻る
+            </a>
+        </div>
+
+    </div>
+
+</main>
 
 </body>
 </html>

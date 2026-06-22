@@ -36,8 +36,16 @@ public class AdminStaffController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute StaffAccountForm staffAccountForm) {
+    public String create(@ModelAttribute StaffAccountForm staffAccountForm,Model model) {
 
+    		String username = staffAccountForm.getUsername();
+    	
+    		if ("admin".equalsIgnoreCase(username)) {
+            model.addAttribute("staffAccountForm", staffAccountForm);
+            model.addAttribute("errorMsg", "admin は予約済みのユーザーIDのため使用できません。");
+            return "admin/staff/form";
+        }
+    	
         StaffAccountEntity staff = new StaffAccountEntity();
 
         staff.setUsername(staffAccountForm.getUsername());

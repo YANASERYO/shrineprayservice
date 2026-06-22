@@ -1,0 +1,94 @@
+/* =========================
+   common.css
+   全画面共通の最低限
+========================= */
+
+:root {
+    --color-main: #8b1e1e;
+    --color-main-dark: #6f1717;
+    --color-bg: #f7f3ea;
+    --color-text: #2f2a24;
+    --color-white: #ffffff;
+    --color-border: #d8c7aa;
+
+    --content-width: 960px;
+    --radius: 8px;
+}
+
+/* 基本設定 */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Yu Gothic", "Meiryo", sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    line-height: 1.7;
+}
+
+/* 共通レイアウト */
+.main-container {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 24px;
+}
+
+/* 見出し */
+h1 {
+    margin-top: 0;
+    margin-bottom: 24px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--color-main);
+    font-size: 28px;
+}
+
+/* リンク */
+a {
+    color: var(--color-main);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* 共通ボタン */
+button,
+input[type="submit"] {
+    cursor: pointer;
+}
+
+/* ヘッダー */
+.site-header {
+    background-color: var(--color-main);
+    color: var(--color-white);
+}
+
+.header-inner {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 14px 24px;
+}
+
+.site-title a {
+    color: var(--color-white);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* フッター */
+.site-footer {
+    margin-top: 48px;
+    padding: 20px;
+    background-color: var(--color-main-dark);
+    color: var(--color-white);
+    text-align: center;
+    font-size: 14px;
+}

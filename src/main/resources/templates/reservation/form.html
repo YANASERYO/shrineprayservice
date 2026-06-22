@@ -3,40 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>祈願予約フォーム</title>
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/form.css}">
+<link rel="stylesheet" th:href="@{/css/responsive.css}">
+<title>祈願受付フォーム</title>
 </head>
 <body>
-<h1>祈願予約フォーム</h1>
+<h1>祈願受付フォーム</h1>
 
 <form th:action="@{/reservations}" th:object="${reservationForm}" method="post">
-    <label for="name">名前:</label>
-	<p>初宮・代理参拝の方は、備考に氏名等を追加でをご記入ください。</p>
-    <input type="text" id="name" th:field="*{name}" placeholder="例：山田　太郎"><br><br>
+    <label for="name">氏名</label>
+    <input type="text" id="name" th:field="*{name}" placeholder="例：山田　太郎">
+	<p>初宮・代理参拝の方は、備考に氏名等を追加でご記入ください。</p>
 	<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 	
-	
-	<label for="kana">かな:</label>
+	<label for="kana">氏名カナ</label>
 	<input type="text" id="kana" th:field="*{kana}" placeholder="例：やまだ　たろう"><br><br>
 	<p th:if="${#fields.hasErrors('kana')}" th:errors="*{kana}"></p>
 	
-	<label for="birthdate">生年月日:</label>
+	<label for="birthdate">生年月日</label>
 	<input type="date" id="birthday" th:field="*{birthday}" ><br><br>
 	<p th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></p>
 	
-	<label for="phone">電話番号:</label>
+	<label for="phone">電話番号</label>
 	<input type="text" id="phone" th:field="*{phone}" placeholder="例：090-9999-9999"><br><br>
     <p th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></p>
 	
-	<label for="postalCode">郵便番号:</label>
-	<p>郵便番号を入力すると町名まで自動入力されます</p>
+	<label for="postalCode">郵便番号　郵便番号を入力すると町名まで自動入力されます</label>
 	<input type="text" id="postalCode" th:field="*{postalCode}" placeholder="例：811-3221"><br><br>
 	<p th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}"></p>
 	
-	<label for="address">住所:</label>
+	<label for="address">住所</label>
 	<input type="text" id="address" th:field="*{address}" placeholder="例：福岡県福津市若木台〇〇〇〇"><br><br>
 	<p th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></p>
 		
-    <label for="email">メールアドレス:</label>
+    <label for="email">メールアドレス</label>
     <input type="email" id="email" th:field="*{email}" placeholder="例：×××××＠×××.com"><br><br>
 	<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 	
@@ -44,11 +45,11 @@
 	    翌日以降の祈願をご希望の場合は、下記のカレンダーより日付を選択してください。
 	</p>
 	
-    <label for="date">祈願予約日（翌日以降）:</label>
+    <label for="date">祈願予約日（翌日以降）</label>
     <input type="date" id="preferredDate" th:field="*{preferredDate}"><br><br>
 	<p th:if="${#fields.hasErrors('preferredDate')}" th:errors="*{preferredDate}"></p>
 	
-    <label for="prayerType">祈願の種類:</label>
+    <label for="prayerType">祈願の種類</label>
     <select id="prayerType" th:field="*{prayerType}">
         <option value="">選択してください</option>
         <option value="無病息災">無病息災</option>
@@ -66,7 +67,7 @@
 	<p th:if="${#fields.hasErrors('prayerType')}" th:errors="*{prayerType}"></p>
 	<br><br>
 
-	<label for="note">備考（記載方法が不明の際はご相談ください）:</label><br>
+	<label for="note">備考（記載方法が不明の際はご相談ください）</label><br>
 	<textarea id="note" th:field="*{note}" rows="4" cols="100" 
 	placeholder="例：海上安全の祈願をお願いします、船名は「〇〇丸です」&#10;例：初宮にて参拝します親　〇〇太郎・〇〇花子&#10;例：代理参拝となります、参拝者　〇〇良子　電話番号090‐9999‐9999"></textarea>
 	<p th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></p>

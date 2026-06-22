@@ -1,0 +1,55 @@
+/* =========================
+   reservation-complete.css
+   予約完了画面
+========================= */
+
+.complete-box {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 28px;
+    background-color: var(--color-white, #ffffff);
+    border: 1px solid var(--color-border, #d8c7aa);
+    border-radius: var(--radius, 8px);
+}
+
+.complete-row {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--color-border, #d8c7aa);
+}
+
+.complete-row:last-of-type {
+    border-bottom: none;
+}
+
+.complete-label {
+    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--color-main, #8b1e1e);
+}
+
+.complete-value {
+    font-size: 16px;
+    color: var(--color-text, #2f2a24);
+    word-break: break-word;
+}
+
+.complete-actions {
+    margin-top: 28px;
+    text-align: center;
+}
+
+.complete-link {
+    display: inline-block;
+    padding: 12px 20px;
+    background-color: var(--color-main, #8b1e1e);
+    color: #ffffff;
+    border-radius: var(--radius, 8px);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.complete-link:hover {
+    background-color: var(--color-main-dark, #6f1717);
+    text-decoration: none;
+}
