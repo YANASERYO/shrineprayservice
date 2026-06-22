@@ -1,10 +1,12 @@
 package com.shrine.controller;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -78,12 +80,11 @@ public class ReservationController {
     	reservation.setEmail(reservationForm.getEmail());
     
     	LocalDate today = LocalDate.now();
-    	String preferredDateText = reservationForm.getPreferredDate();
+    	LocalDate preferredDate = reservationForm.getPreferredDate();
 
-    	if (preferredDateText == null || preferredDateText.isBlank()) {
-    	    preferredDateText = today.toString();
+    	if (preferredDate == null) {
+    	    preferredDate = today;
     	} else {
-    	    LocalDate preferredDate = LocalDate.parse(preferredDateText);
 
     	    if (!preferredDate.isAfter(today)) {
     	        bindingResult.rejectValue(
@@ -95,8 +96,8 @@ public class ReservationController {
     	    }
     	}
 
-    	reservation.setPreferredDate(preferredDateText);
-    	
+    	reservation.setPreferredDate(preferredDate);
+    	reservation.setPreferredTime(reservationForm.getPreferredTime());
     	reservation.setPrayerType(reservationForm.getPrayerType());
     	reservation.setNote(reservationForm.getNote());
     	reservation.setAddressKana(reservationForm.getAddressKana());
@@ -112,6 +113,7 @@ public class ReservationController {
     	model.addAttribute("address", savedReservation.getAddress());
     	model.addAttribute("email", savedReservation.getEmail());
     	model.addAttribute("preferredDate", savedReservation.getPreferredDate());
+    	model.addAttribute("preferredTime", savedReservation.getPreferredTime());
     	model.addAttribute("prayerType", savedReservation.getPrayerType());
     	model.addAttribute("note", savedReservation.getNote());
     	model.addAttribute("addressKana", savedReservation.getAddressKana());
@@ -166,12 +168,17 @@ public class ReservationController {
 			@PathVariable Long id,
 			@RequestParam String name,
 			@RequestParam String kana,
-			@RequestParam String birthday,
+			@RequestParam
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+			LocalDate birthday,
 			@RequestParam String phone,
 			@RequestParam String postalCode,
 			@RequestParam String address,
 			@RequestParam String email,
-			@RequestParam String preferredDate,
+			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+			LocalDate preferredDate,
+			@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+			LocalTime preferredTime,
 			@RequestParam String prayerType,
 			@RequestParam(required = false) String note,
 			@RequestParam(required = false) String addressKana,
@@ -192,6 +199,7 @@ public class ReservationController {
 		updatedReservation.setAddress(address);
 		updatedReservation.setEmail(email);
 		updatedReservation.setPreferredDate(preferredDate);
+		updatedReservation.setPreferredTime(preferredTime);
 		updatedReservation.setPrayerType(prayerType);
 		updatedReservation.setNote(note);
 		updatedReservation.setAddressKana(addressKana);

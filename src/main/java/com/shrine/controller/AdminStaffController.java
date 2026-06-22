@@ -42,9 +42,15 @@ public class AdminStaffController {
     	
     		if ("admin".equalsIgnoreCase(username)) {
             model.addAttribute("staffAccountForm", staffAccountForm);
-            model.addAttribute("errorMsg", "admin は予約済みのユーザーIDのため使用できません。");
+            model.addAttribute("errorMsg", "admin はユーザーIDとして使用できません。");
             return "admin/staff/form";
         }
+    		
+    		if (staffAccountRepository.findByUsername(username).isPresent()) {
+    		    model.addAttribute("staffAccountForm", staffAccountForm);
+    		    model.addAttribute("errorMsg", "このユーザーIDは既に使用されています。");
+    		    return "admin/staff/form";
+    		}
     	
         StaffAccountEntity staff = new StaffAccountEntity();
 

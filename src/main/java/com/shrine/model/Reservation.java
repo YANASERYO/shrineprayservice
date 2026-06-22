@@ -1,15 +1,19 @@
 package com.shrine.model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class Reservation {
 	
 	private String name;
 	private String kana;
-	private String birthday;
+	private LocalDate birthday;
 	private String phone;
 	private String postalCode;
 	private String address;
 	private String email;
-	private String preferredDate;
+	private LocalDate preferredDate;
+	private LocalTime preferredTime;
 	private String prayerType;
 	private String note;
 	private String addressKana;
@@ -19,7 +23,7 @@ public class Reservation {
 	}
 	
 //	引数ありのコンストラクタ
-	public Reservation(String name, String kana,String birthday, String phone,String postalCode,String address, String email, String preferredDate, String prayerType, String note,String addressKana) {
+	public Reservation(String name, String kana,LocalDate birthday, String phone,String postalCode,String address, String email, LocalDate preferredDate, LocalTime preferredTime,String prayerType, String note,String addressKana) {
         this.name = name;
         this.kana = kana;
         this.birthday = birthday;
@@ -28,6 +32,7 @@ public class Reservation {
         this.address = address;
         this.email = email;
         this.preferredDate = preferredDate;
+        this.preferredTime = preferredTime;
         this.prayerType = prayerType;
         this.note = note;
         this.addressKana =addressKana;
@@ -42,8 +47,8 @@ public class Reservation {
 	public void setKana(String kana) {this.kana = kana;}
 	
 //	生年月日
-	public String getBirthday() {return birthday;}
-	public void setBirthday(String birthday) {this.birthday = birthday;}
+	public LocalDate getBirthday() {return birthday;}
+	public void setBirthday(LocalDate birthday) {this.birthday = birthday;}
 
 //	電話番号
 	public String getPhone() {return phone;}
@@ -61,10 +66,14 @@ public class Reservation {
 	public String getEmail() {return email;}
 	public void setEmail(String email) {this.email = email;}
 
-//	希望日時
-	public String getPreferredDate() {return preferredDate;}
-	public void setPreferredDate(String preferredDate) {this.preferredDate = preferredDate;}
+//	希望日
+	public LocalDate getPreferredDate() {return preferredDate;}
+	public void setPreferredDate(LocalDate preferredDate) {this.preferredDate = preferredDate;}
 
+//	希望時間
+	public LocalTime getPreferredTime() {return preferredTime;}
+	public void setPreferredTime(LocalTime preferredTime) {this.preferredTime = preferredTime;}
+	
 //	祈願内容
 	public String getPrayerType() {return prayerType;}
 	public void setPrayerType(String prayerType) {this.prayerType = prayerType;}

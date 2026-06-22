@@ -1,8 +1,14 @@
 package com.shrine.form;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class ReservationForm {
 	@NotBlank(message = "名前は必須です")
@@ -11,8 +17,9 @@ public class ReservationForm {
 	@NotBlank(message = "かなは必須です")
 	private String kana;
 	
-	@NotBlank(message = "生年月日は必須です")
-	private String birthday;
+	@NotNull(message = "生年月日は必須です")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	private LocalDate birthday;
 	
 	@NotBlank(message = "電話番号は必須です")
 	private String phone;
@@ -28,12 +35,16 @@ public class ReservationForm {
 	private String email;
 	
 //	空の場合は当日受付として処理に変更
-	private String preferredDate;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	private LocalDate preferredDate;
+	
+	@DateTimeFormat(iso = DateTimeFormat.ISO.TIME)
+	private LocalTime preferredTime;
 	
 	@NotBlank(message = "祈祷内容は必須です")
 	private String prayerType;
 	
-	@Size(max = 500, message = "備考は500文字以内で入力してください")
+	@Size(max = 200, message = "備考は200文字以内で入力してください")
 	private String note;
 	
 //	祝詞用住所のフリガナ
@@ -45,8 +56,8 @@ public class ReservationForm {
     public String getKana() { return kana; }
     public void setKana(String kana) { this.kana = kana; }
 
-    public String getBirthday() { return birthday; }
-    public void setBirthday(String birthday) { this.birthday = birthday; }
+    public LocalDate getBirthday() { return birthday; }
+    public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
 
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
@@ -60,9 +71,12 @@ public class ReservationForm {
     public String getEmail() { return email; }
     public void setEmail(String email) { this.email = email; }
 
-    public String getPreferredDate() { return preferredDate; }
-    public void setPreferredDate(String preferredDate) { this.preferredDate = preferredDate; }
+    public LocalDate getPreferredDate() { return preferredDate; }
+    public void setPreferredDate(LocalDate preferredDate) { this.preferredDate = preferredDate; }
 
+    public LocalTime getPreferredTime() { return preferredTime; }
+    public void setPreferredTime(LocalTime preferredTime) { this.preferredTime = preferredTime; }
+    
     public String getPrayerType() { return prayerType; }
     public void setPrayerType(String prayerType) { this.prayerType = prayerType; }
 

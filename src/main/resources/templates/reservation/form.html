@@ -42,12 +42,15 @@
 	<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 	
 	<p>
-	    翌日以降の祈願をご希望の場合は、下記のカレンダーより日付を選択してください。
+	    翌日以降の祈願をご希望の場合は、下記のカレンダーより日時を選択してください。
 	</p>
 	
     <label for="date">祈願予約日（翌日以降）</label>
     <input type="date" id="preferredDate" th:field="*{preferredDate}"><br><br>
 	<p th:if="${#fields.hasErrors('preferredDate')}" th:errors="*{preferredDate}"></p>
+	
+	<label for="preferredTime">希望時刻</label>
+	<input type="time" id="preferredTime" th:field="*{preferredTime}">
 	
     <label for="prayerType">祈願の種類</label>
     <select id="prayerType" th:field="*{prayerType}">

@@ -41,6 +41,9 @@
     <label for="date">祈願希望日時:</label>
     <input type="date" id="preferredDate" name="preferredDate" th:value="${reservation.preferredDate}"><br><br>
 
+	<label for="preferredTime">希望時刻</label>
+	<input type="time" id="preferredTime" th:value="${reservation.preferredTime}">
+	
     <label for="prayerType">祈願の種類:</label>
     <select id="prayerType" name="prayerType" required>
 		<option value="">選択してください</option>

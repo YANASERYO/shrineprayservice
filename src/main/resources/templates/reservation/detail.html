@@ -43,9 +43,13 @@
         <td th:text="${reservation.email}"></td>
     </tr>
     <tr>
-        <th>祈願希望日</th>
+        <th>祈願日</th>
         <td th:text="${reservation.preferredDate}"></td>
     </tr>
+	<tr>
+	    <th>希望時刻</th>
+		<td th:text="${reservation.preferredTime}"></td>
+	</tr>
     <tr>
         <th>祈願の種類</th>
         <td th:text="${reservation.prayerType}"></td>
@@ -54,6 +58,18 @@
         <th>備考</th>
         <td th:text="${reservation.note}"></td>
     </tr>
+	<tr>
+	    <th>受付日時</th>
+	    <td th:text="${reservation.createdAt}"></td>
+	</tr>
+	<tr>
+	    <th>最終更新日時</th>
+	    <td th:text="${reservation.updatedAt}"></td>
+	</tr>
+	<tr>
+	    <th>祈願処理日時</th>
+	    <td th:text="${reservation.prayedAt}"></td>
+	</tr>
 </table>
 
 <br>
