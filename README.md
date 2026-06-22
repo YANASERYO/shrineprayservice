@@ -24,6 +24,7 @@ Spring Bootを使用した神社用祈願予約管理アプリです。
 
 願意とは、祈願における願い事のことです。
 現在の区分は以下を想定しています。
+設定しやすく作成しています。
 
 - 無病息災
 - 恋愛成就
@@ -44,11 +45,20 @@ Spring Bootを使用した神社用祈願予約管理アプリです。
 
 - 祈願予約フォームの表示
 - 予約情報の入力
+- 入力チェック
 - 入力内容の完了画面表示
 - PostgreSQLへの予約情報保存
 - 予約番号の自動採番
 - 予約一覧画面
 - 予約詳細画面
+- 祈願済ステータスの管理（Boolean）
+- 祈願済日時の記録
+- 祈願予約日時の登録
+- 当日の未祈願をデフォルト表示し、その他属性の登録データの表示も可能に
+- 郵便番号から住所自動入力→Listで祝詞用にフリガナ表示
+- 管理者・職員ログイン
+- 管理者・職員画面の役割分離
+- 管理者による職員アカウントの作成
 - 予約内容の編集・削除（祈願済かを含めて）
 - Controller / Service / Repository / Entity に分けた構成
 
@@ -57,15 +67,23 @@ Spring Bootを使用した神社用祈願予約管理アプリです。
 ```text
 com.shrine
  ├ controller
- │   └ ReservationController
+ │ ├ ReservationController
+ │ ├ LoginController
+ │ ├ AdminController
+ │ └ StaffController
+ ├ form
+ │ └ ReservationForm
  ├ model
- │   └ Reservation
+ │ └ Reservation
  ├ entity
- │   └ ReservationEntity
+ │ ├ ReservationEntity
+ │ └ UserEntity
  ├ repository
- │   └ ReservationRepository
+ │ ├ ReservationRepository
+ │ └ UserRepository
  ├ service
- │   └ ReservationService
+ │ ├ ReservationService
+ │ └ UserService
  └ ShrineprayserviceApplication
 ```
 
@@ -81,23 +99,33 @@ PostgreSQLの使用を想定しています。
 - 郵便番号
 - 住所
 - メールアドレス
-- 祈願希望日
+- 祈願日
+- 祈願時刻
 - 祈願の種類
 - 備考
 - 祈願実施状況（真偽）
 - 実施日時
+- 作成日時
+- 更新日時
 
 ## 今後の予定
 
-- 入力チェックの強化（済）
-- 管理者画面
 - メール通知機能
-- 郵便番号からデジタルアドレスAPIを使用して住所自動入力＆一覧に祝詞用ふりがな表示
-- 初穂料の登録（デフォルト5,000円、一金登録できるようにするが七五三の2人初穂料をどうするか思案中）
+- 初穂料の登録
+- 今日の未祈願一覧の運用改善
+- 祈願済データの崇敬者管理への連携
+- 厄年対象者の抽出
+- 印刷用画面の整備
+- 崇敬者・参拝者管理
+- 行事出席受付管理
+- 授与品の郵送受付管理
+- 在庫管理
+- 帳簿管理
+- スケジュール管理
 
 ## 学習目的
 
-このアプリは、Spring Bootの基本的なWebアプリ開発を学習するために作成しています。
+このアプリは、オブジェクト指向言語の基本的なWebアプリ開発を学習するために作成しています。
 
 以下の内容を意識しています。
 
