@@ -73,6 +73,7 @@ public class ReservationController {
     	reservation.setName(reservationForm.getName());
     	reservation.setKana(reservationForm.getKana());
     	reservation.setBirthday(reservationForm.getBirthday());
+    	reservation.setGender(reservationForm.getGender());
     	reservation.setPhone(reservationForm.getPhone());
     	//郵便番号のハイフンを削除
     	reservation.setPostalCode(reservationForm.getPostalCode().replace("-", ""));
@@ -108,6 +109,7 @@ public class ReservationController {
     	model.addAttribute("name", savedReservation.getName());
     	model.addAttribute("kana", savedReservation.getKana());
     	model.addAttribute("birthday", savedReservation.getBirthday());
+    	model.addAttribute("gender", savedReservation.getGender());
     	model.addAttribute("phone", savedReservation.getPhone());
     	model.addAttribute("postalCode", savedReservation.getPostalCode());
     	model.addAttribute("address", savedReservation.getAddress());
@@ -171,6 +173,7 @@ public class ReservationController {
 			@RequestParam
 			@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 			LocalDate birthday,
+			@RequestParam String gender,
 			@RequestParam String phone,
 			@RequestParam String postalCode,
 			@RequestParam String address,
@@ -194,6 +197,7 @@ public class ReservationController {
 		updatedReservation.setName(name);
 		updatedReservation.setKana(kana);
 		updatedReservation.setBirthday(birthday);
+		updatedReservation.setGender(gender);
 		updatedReservation.setPhone(phone);
 		updatedReservation.setPostalCode(postalCode.replace("-", "")); // 郵便番号のハイフンを削除
 		updatedReservation.setAddress(address);

@@ -8,6 +8,7 @@ public class Reservation {
 	private String name;
 	private String kana;
 	private LocalDate birthday;
+	private String gender;
 	private String phone;
 	private String postalCode;
 	private String address;
@@ -23,10 +24,11 @@ public class Reservation {
 	}
 	
 //	引数ありのコンストラクタ
-	public Reservation(String name, String kana,LocalDate birthday, String phone,String postalCode,String address, String email, LocalDate preferredDate, LocalTime preferredTime,String prayerType, String note,String addressKana) {
+	public Reservation(String name, String kana,LocalDate birthday,String gender, String phone,String postalCode,String address, String email, LocalDate preferredDate, LocalTime preferredTime,String prayerType, String note,String addressKana) {
         this.name = name;
         this.kana = kana;
         this.birthday = birthday;
+        this.gender = gender;
         this.phone = phone;
         this.postalCode = postalCode;
         this.address = address;
@@ -49,6 +51,10 @@ public class Reservation {
 //	生年月日
 	public LocalDate getBirthday() {return birthday;}
 	public void setBirthday(LocalDate birthday) {this.birthday = birthday;}
+	
+//	性別
+	public String getGender() {return gender;}
+	public void setGender(String gender) {this.gender = gender;}
 
 //	電話番号
 	public String getPhone() {return phone;}

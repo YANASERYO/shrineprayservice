@@ -21,6 +21,11 @@
 	<input type="text" id="kana" th:field="*{kana}" placeholder="例：やまだ　たろう"><br><br>
 	<p th:if="${#fields.hasErrors('kana')}" th:errors="*{kana}"></p>
 	
+<!--	追加しました-->
+	<label for="gender">性別</label>
+	<input type="radio" th:field="*{gender}" value="MALE">男性
+	<input type="radio" th:field="*{gender}" value="FEMALE">女性
+	
 	<label for="birthdate">生年月日</label>
 	<input type="date" id="birthday" th:field="*{birthday}" ><br><br>
 	<p th:if="${#fields.hasErrors('birthday')}" th:errors="*{birthday}"></p>

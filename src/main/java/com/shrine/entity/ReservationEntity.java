@@ -11,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import com.shrine.util.WarekiUtil;
 
 @Entity
 public class ReservationEntity {
@@ -21,6 +22,7 @@ public class ReservationEntity {
     private String name;
     private String kana;
     private LocalDate birthday;
+    private String gender;
     private String phone;
     private String postalCode;
     private String address;
@@ -52,6 +54,9 @@ public class ReservationEntity {
     public LocalDate getBirthday() { return birthday; }
     public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
 
+    public String getGender() { return gender; }
+    public void setGender(String gender) { this.gender = gender; }
+    
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
     
@@ -85,12 +90,9 @@ public class ReservationEntity {
     public String getAddressKana() {return addressKana;}
     public void setAddressKana(String addressKana) {this.addressKana = addressKana;}
     
-    //一覧表示でのみ西暦を和暦に変換していた、birthdayの型変更に伴い後ほどクラス化する
+    //WarekiUtilclassを作成
     public String getBirthdayWareki() {
-        if (birthday == null) {
-            return "";
-        }       
-            return birthday.toString();
+        return WarekiUtil.toWareki(this.birthday);
         
     }
     

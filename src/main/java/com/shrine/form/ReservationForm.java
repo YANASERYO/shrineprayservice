@@ -21,6 +21,9 @@ public class ReservationForm {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 	private LocalDate birthday;
 	
+	@NotBlank(message = "性別は必須です")
+	private String gender;
+	
 	@NotBlank(message = "電話番号は必須です")
 	private String phone;
 	
@@ -59,6 +62,9 @@ public class ReservationForm {
     public LocalDate getBirthday() { return birthday; }
     public void setBirthday(LocalDate birthday) { this.birthday = birthday; }
 
+    public String getGender() { return gender; }
+    public void setGender(String gender) { this.gender = gender; }
+    
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
     

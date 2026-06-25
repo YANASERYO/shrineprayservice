@@ -33,6 +33,7 @@ public class ReservationService {
 		entity.setName(reservation.getName());
 		entity.setKana(reservation.getKana());
 		entity.setBirthday(reservation.getBirthday());
+		entity.setGender(reservation.getGender());
 		entity.setPhone(reservation.getPhone());
 		entity.setPostalCode(reservation.getPostalCode());
 		entity.setAddress(reservation.getAddress());
@@ -75,6 +76,7 @@ public class ReservationService {
 			existingReservation.setName(updatedReservation.getName());
 			existingReservation.setKana(updatedReservation.getKana());
 			existingReservation.setBirthday(updatedReservation.getBirthday());
+			existingReservation.setGender(updatedReservation.getGender());
 			existingReservation.setPhone(updatedReservation.getPhone());
 			existingReservation.setPostalCode(updatedReservation.getPostalCode());
 			existingReservation.setAddress(updatedReservation.getAddress());

@@ -18,6 +18,11 @@
 	<label for="birthdate">生年月日:</label>
 	<input type="date" id="birthday" name="birthday" th:value="${reservation.birthday}"><br><br>
 	
+	<!--	追加しました-->
+	<label for="gender">性別</label>
+	<input type="radio" th:field="*{gender}" value="MALE">男性
+	<input type="radio" th:field="*{gender}" value="FEMALE">女性
+	
 	<label for="phone">電話番号:</label>
 	<input type="text" id="phone" name="phone" th:value="${reservation.phone}"><br><br>
 	
