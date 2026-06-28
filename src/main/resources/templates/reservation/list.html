@@ -10,12 +10,20 @@
 <p>
     <a href="/reservations/new">新しい予約を登録</a>
 </p>
-<p>
-    <a th:href="@{/staff/reservations(filter='today')}">今日の未祈願</a> |
-    <a th:href="@{/staff/reservations(filter='future')}">翌日以降の未祈願</a> |
-    <a th:href="@{/staff/reservations(filter='prayed')}">祈願済み</a> |
-    <a th:href="@{/staff/reservations(filter='all')}">全部</a>
-</p>
+<div class="count-area">
+	<a th:href="@{/staff/reservations(filter='today')}">
+	    今日の未祈願（<span th:text="${todayUnprayedCount}">0</span>）
+	</a>
+	<a th:href="@{/staff/reservations(filter='future')}">
+	    翌日以降（<span th:text="${futureUnprayedCount}">0</span>）
+	</a>
+	<a th:href="@{/staff/reservations(filter='prayed')}">
+	    祈願済（<span th:text="${prayedCount}">0</span>）
+	</a>
+	<a th:href="@{/staff/reservations(filter='all')}">
+	    全件（<span th:text="${allCount}">0</span>）
+	</a>
+</div>
 <table border="1">
     <tr>
         <th>予約番号</th>

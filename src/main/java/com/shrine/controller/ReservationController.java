@@ -55,6 +55,12 @@ public class ReservationController {
     	
 		model.addAttribute("reservations", reservationService.findReservationsByFilter(filter));
 		model.addAttribute("filter", filter);
+		
+//		件数表示
+		model.addAttribute("todayUnprayedCount", reservationService.countTodayUnprayed());
+	    model.addAttribute("futureUnprayedCount", reservationService.countFutureUnprayed());
+	    model.addAttribute("prayedCount", reservationService.countPrayed());
+	    model.addAttribute("allCount", reservationService.countAllReservations());
 		return "reservation/list";
 	}
 

@@ -12,15 +12,19 @@ import org.springframework.stereotype.Service;
 
 import com.shrine.entity.ReservationEntity;
 import com.shrine.model.Reservation;
+import com.shrine.repository.ReservationPrayCountRepository;
 import com.shrine.repository.ReservationRepository;
 
 @Service
 public class ReservationService {
 
 	private final ReservationRepository reservationRepository;
+	private final ReservationPrayCountRepository reservationPrayCountRepository;
 	
-	public ReservationService(ReservationRepository reservationRepository) {
+	
+	public ReservationService(ReservationRepository reservationRepository,ReservationPrayCountRepository reservationPrayCountRepository) {
 		this.reservationRepository = reservationRepository;
+		this.reservationPrayCountRepository = reservationPrayCountRepository;
 	}
 	
 	public ReservationEntity createReservation(Reservation reservation) {
@@ -160,6 +164,25 @@ public class ReservationService {
             reservationRepository.save(reservation);
         }
     }
+    
+    public long countTodayUnprayed() {
+        LocalDate today = LocalDate.now();
+        return reservationPrayCountRepository.countByPrayedFalseAndPreferredDate(today);
+    }
+
+    public long countFutureUnprayed() {
+        LocalDate today = LocalDate.now();
+        return reservationPrayCountRepository.countByPrayedFalseAndPreferredDateAfter(today);
+    }
+
+    public long countPrayed() {
+        return reservationPrayCountRepository.countByPrayedTrue();
+    }
+
+    public long countAllReservations() {
+        return reservationPrayCountRepository.count();
+    }
+    
     
 }
 	
