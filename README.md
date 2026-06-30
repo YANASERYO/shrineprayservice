@@ -4,9 +4,11 @@
 
 Spring Bootを使用した神社向け祈願予約管理アプリです。
 
-神社の祈願予約をWebフォームから受け付け、入力内容をPostgreSQLに保存し、職員・管理者が予約内容を確認、編集、管理できることを目的としています。
+神社の祈願予約をWebフォームから受け付け、入力内容をPostgreSQLに保存し、職員が予約内容を確認・編集・管理できることを目的としています。
 
-現在開発中です。
+また、管理者は職員アカウントの管理を行えるようにしています。
+
+現在は祈願予約管理を中心に開発中です。
 
 ## 使用技術
 
@@ -67,57 +69,100 @@ Spring Bootを使用した神社向け祈願予約管理アプリです。
 
 ### 職員向け
 
-- 予約一覧画面
+- 職員ログイン
+- 職員メニューの表示
+- 祈願予約一覧画面
 - 予約詳細画面
 - 当日の未祈願予約のデフォルト表示
-- 予約内容の編集・削除
+- 未祈願・祈願済・全件の表示切り替え
+- 未祈願・祈願済・全件などの件数表示
+- 予約内容の編集
+- 予約内容の削除
 - 祈願済ステータスの管理
 - 祈願済日時の記録
 
 ### 管理者向け
 
-- 管理者・職員ログイン
+- 管理者ログイン
+- 管理者メニューの表示
 - 管理者・職員画面の役割分離
-- 管理者による職員アカウントの作成
+- 職員アカウント管理
+- 職員アカウント一覧表示
+- 職員アカウント新規作成
 
 ### 技術面
 
 - PostgreSQLへの予約情報保存
 - 予約番号の自動採番
-- 祈願予約日時の登録
 - Controller / Service / Repository / Entity に分けた構成
+- Formクラスによる入力値の受け取り
+- DTOによる件数表示用データの管理
+- 郵便番号マスタを利用した住所検索
+- 和暦表示用ユーティリティの作成
 
 ## アプリ構成
 
 ```text
 com.shrine
  ├ controller
- │ ├ ReservationController
- │ ├ LoginController
  │ ├ AdminController
+ │ ├ AdminStaffController
+ │ ├ HomeController
+ │ ├ LoginController
+ │ ├ PostalCodeController
+ │ ├ ReservationController
  │ └ StaffController
- ├ form
- │ └ ReservationForm
- ├ model
- │ └ Reservation
+ │
+ ├ dto
+ │ └ ReservationPrayCount
+ │
  ├ entity
+ │ ├ PostalCodeMaster
  │ ├ ReservationEntity
- │ └ UserEntity
+ │ └ StaffAccountEntity
+ │
+ ├ form
+ │ ├ ReservationForm
+ │ └ StaffAccountForm
+ │
+ ├ model
+ │ ├ LoginUser
+ │ └ Reservation
+ │
  ├ repository
- │ ├ ReservationRepository
+ │ ├ PostalCodeMasterRepository
  │ ├ ReservationPrayCountRepository
- │ └ UserRepository
+ │ ├ ReservationRepository
+ │ └ StaffAccountRepository
+ │
  ├ service
- │ ├ ReservationService
- │ └ UserService
+ │ ├ PostalCodeService
+ │ └ ReservationService
+ │
+ ├ util
+ │ └ WarekiUtil
+ │
  └ ShrineprayserviceApplication
+```
+
+## テンプレート構成
+
+```text
+templates
+ ├ admin
+ ├ error
+ ├ fragments
+ ├ reservation
+ ├ staff
+ ├ index.html
+ └ login.html
 ```
 
 ## DB
 
 PostgreSQLの使用を想定しています。
 
-保存項目は以下の通りです。
+主な保存項目は以下の通りです。
 
 - 予約番号
 - 氏名
@@ -138,6 +183,63 @@ PostgreSQLの使用を想定しています。
 - 作成日時
 - 更新日時
 
+## 画面構成イメージ
+
+```text
+トップページ
+  ├ 一般の方
+  │   └ 祈願予約フォーム
+  │       └ 予約完了画面
+  │
+  └ ログイン画面
+      ├ 管理者ログイン
+      │   └ 管理者メニュー
+      │       ├ 職員アカウント管理
+      │       │   ├ 職員アカウント一覧
+      │       │   └ 職員アカウント新規作成
+      │       ├ アカウント追加
+      │       ├ アカウント削除
+      │       └ システム問い合わせ
+      │
+      └ 職員ログイン
+          └ 職員メニュー
+              ├ 祈願予約管理
+              │   ├ 予約一覧
+              │   ├ 予約詳細
+              │   ├ 予約編集
+              │   ├ 予約削除
+              │   └ 祈願済ステータス更新
+              ├ お祭り・行事出席管理
+              ├ 授与品郵送受付管理
+              ├ スケジュール管理
+              ├ 在庫管理
+              ├ 帳簿管理
+              └ 崇敬者・参拝者管理
+```
+
+## 設計で意識していること
+
+このアプリでは、以下のような責務分離を意識しています。
+
+```text
+Controller
+  ↓
+Service
+  ↓
+Repository
+  ↓
+DB
+```
+
+- Controller：リクエストの受け取り、画面遷移
+- Form：画面から入力された値の受け取り
+- Service：業務処理、予約更新、祈願済処理、件数取得
+- Repository：DBアクセス
+- Entity：DBに保存するデータ
+- Model：画面や処理で扱うデータ
+- DTO：画面表示用の集計データ
+- Utility：和暦変換などの共通処理
+
 ## 今後の予定
 
 ### 短期的に実装したい機能
@@ -147,6 +249,8 @@ PostgreSQLの使用を想定しています。
 - 印刷用画面の整備
 - 受付担当者の紐づけ
 - 今日の未祈願一覧の運用改善
+- ログイン処理の改善
+- 入力チェックの強化
 
 ### 中長期的に拡張したい機能
 
@@ -168,10 +272,12 @@ PostgreSQLの使用を想定しています。
 - Spring MVCの基本構成
 - Thymeleafによる画面表示
 - フォーム入力値の受け取り
+- 入力チェック
 - Service層を使った処理分離
 - Spring Data JPAによるDB保存
 - PostgreSQLとの連携
 - Controller → Service → Repository → DB の流れ
+- Entity / Form / Model / DTO の役割分担
 
 ## 最終的な目標
 
@@ -185,7 +291,7 @@ PostgreSQLの使用を想定しています。
 - お祭り・行事の出席受付フォーム
 - お守り・授与品の郵送受付フォーム
 
-### 管理者向け機能
+### 職員向け機能
 
 - 祈願予約管理
 - お祭り・行事の出席管理
@@ -195,26 +301,15 @@ PostgreSQLの使用を想定しています。
 - 帳簿管理
 - 崇敬者・参拝者管理
 
-### 画面構成イメージ
+### 管理者向け機能
 
-```text
-トップページ
-  ├ 一般の方
-  │   ├ 祈願予約フォーム
-  │   ├ お祭り・行事の出席受付フォーム
-  │   └ お守り・授与品の郵送受付フォーム
-  │
-  └ 管理者
-      └ ログイン画面
-          ↓
-        ID・PASS認証
-          ↓
-        管理メニュー
-          ├ 祈願予約管理
-          ├ お祭り・行事の出席管理
-          ├ お守り・授与品の郵送受付管理
-          ├ スケジュール管理
-          ├ 在庫管理
-          ├ 帳簿管理
-          └ 崇敬者・参拝者管理
-```
+- 職員アカウント管理
+- 職員アカウント作成
+- 職員アカウント削除
+- システム問い合わせ対応
+
+## 補足
+
+このアプリは、前職での神社業務経験をもとに、実際の祈願受付・祭務運用を想定して作成しています。
+
+単なる予約CRUDではなく、祝詞で読み上げる情報、祈願済ステータス、職員による受付管理、将来的な崇敬者管理への連携を意識して設計しています。
