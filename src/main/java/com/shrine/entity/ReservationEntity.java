@@ -101,5 +101,13 @@ public class ReservationEntity {
 
     public LocalDateTime getUpdatedAt() { return updatedAt; }
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
+    
+//    ReservationServiceより移動させた
+    public void markAsPrayed() {
+        LocalDateTime now = LocalDateTime.now();
+        this.prayed = true;
+        this.prayedAt = now;
+        this.updatedAt = now;
+    }
     		
 }

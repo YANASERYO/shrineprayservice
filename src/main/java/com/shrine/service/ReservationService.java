@@ -3,14 +3,12 @@
 package com.shrine.service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.shrine.entity.ReservationEntity;
+import com.shrine.filter.ReservationFilter;
 import com.shrine.mapper.ReservationMapper;
 import com.shrine.model.Reservation;
 import com.shrine.repository.ReservationPrayCountRepository;
@@ -22,12 +20,14 @@ public class ReservationService {
 	private final ReservationRepository reservationRepository;
 	private final ReservationPrayCountRepository reservationPrayCountRepository;
 	private final ReservationMapper reservationMapper;
+	private final ReservationFilter reservationFilter;
 	
 	
-	public ReservationService(ReservationRepository reservationRepository,ReservationPrayCountRepository reservationPrayCountRepository,ReservationMapper reservationMapper) {
+	public ReservationService(ReservationRepository reservationRepository,ReservationPrayCountRepository reservationPrayCountRepository,ReservationMapper reservationMapper,ReservationFilter reservationFilter) {
 		this.reservationRepository = reservationRepository;
 		this.reservationPrayCountRepository = reservationPrayCountRepository;
 		this.reservationMapper = reservationMapper;
+		this.reservationFilter = reservationFilter;
 	}
 	
 	public ReservationEntity createReservation(Reservation reservation) {
@@ -60,72 +60,20 @@ public class ReservationService {
 		return reservationRepository.save(existingReservation);
 	}
 	
-	//一覧表示の祈願実施状況を判別するための機能
-	//findAll()してから抽出する
+//	一覧表示の際の並べ替え
 	public List<ReservationEntity> findReservationsByFilter(String filter) {
-    List<ReservationEntity> reservations = reservationRepository.findAll();
-    LocalDate today = LocalDate.now();
-    
-    if ("future".equals(filter)) {
-    		return reservations.stream()
-    	        .filter(r -> !r.isPrayed())
-    	        .filter(r -> r.getPreferredDate() != null)
-    	        .filter(r -> r.getPreferredDate().isAfter(today))
-    	        .sorted(reservationSortOrder())
-    	        .collect(Collectors.toList());
-    }
-
-    if ("prayed".equals(filter)) {
-    		return reservations.stream()
-            .filter(r -> r.isPrayed())
-            .sorted(reservationSortOrder())
-            .collect(Collectors.toList());
-    }
-
-    if ("all".equals(filter)) {
-    		return reservations.stream()
-            .sorted(reservationSortOrder())
-            .collect(Collectors.toList());
-    }
-
-    //今日の未祈願
-    return reservations.stream()
-    		.filter(r -> !r.isPrayed())
-            .filter(r -> today.equals(r.getPreferredDate()))
-            .sorted(reservationSortOrder())
-            .collect(Collectors.toList());
+	    List<ReservationEntity> reservations = reservationRepository.findAll();
+	    return reservationFilter.filter(reservations, filter);
 	}
 	
-	// 祈願希望日 → 祈願希望時間 → ID の順で並べる
-	private Comparator<ReservationEntity> reservationSortOrder() {
-	    return Comparator
-	            .comparing(
-	                    ReservationEntity::getPreferredDate,
-	                    Comparator.nullsLast(Comparator.naturalOrder())
-	            )
-	            .thenComparing(
-	                    ReservationEntity::getPreferredTime,
-	                    Comparator.nullsLast(Comparator.naturalOrder())
-	            )
-	            .thenComparing(
-	                    ReservationEntity::getId,
-	                    Comparator.nullsLast(Comparator.naturalOrder())
-	            );
-	}
-	
-	
-	
+//	祈願済の処理、entityが処理できるように変更した
     public void markAsPrayed(Long id) {
         ReservationEntity reservation = reservationRepository.findById(id).orElse(null);
-
-        if (reservation != null) {
-        		LocalDateTime now = LocalDateTime.now();
-            reservation.setPrayed(true);
-            reservation.setPrayedAt(now);
-            reservation.setUpdatedAt(now);
-
-            reservationRepository.save(reservation);
+        if (reservation == null) {
+        		return;
         }
+        reservation.markAsPrayed();
+        reservationRepository.save(reservation);
     }
     
     public long countTodayUnprayed() {
