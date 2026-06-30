@@ -1,10 +1,12 @@
 package com.shrine.mapper;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Component;
 
 import com.shrine.entity.ReservationEntity;
+import com.shrine.form.ReservationForm;
 import com.shrine.model.Reservation;
 
 @Component
@@ -43,5 +45,29 @@ public class ReservationMapper {
         entity.setPrayerType(reservation.getPrayerType());
         entity.setNote(reservation.getNote());
         entity.setAddressKana(reservation.getAddressKana());
+    }
+    
+    public Reservation toModel(ReservationForm reservationForm, LocalDate preferredDate) {
+        Reservation reservation = new Reservation();
+
+        reservation.setName(reservationForm.getName());
+        reservation.setKana(reservationForm.getKana());
+        reservation.setBirthday(reservationForm.getBirthday());
+        reservation.setGender(reservationForm.getGender());
+        reservation.setPhone(reservationForm.getPhone());
+
+        if (reservationForm.getPostalCode() != null) {
+            reservation.setPostalCode(reservationForm.getPostalCode().replace("-", ""));
+        }
+
+        reservation.setAddress(reservationForm.getAddress());
+        reservation.setEmail(reservationForm.getEmail());
+        reservation.setPreferredDate(preferredDate);
+        reservation.setPreferredTime(reservationForm.getPreferredTime());
+        reservation.setPrayerType(reservationForm.getPrayerType());
+        reservation.setNote(reservationForm.getNote());
+        reservation.setAddressKana(reservationForm.getAddressKana());
+
+        return reservation;
     }
 }

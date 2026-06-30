@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.shrine.entity.ReservationEntity;
 import com.shrine.form.ReservationForm;
+import com.shrine.mapper.ReservationMapper;
 import com.shrine.model.Reservation;
 import com.shrine.service.ReservationService;
+
 
 @Controller
 public class ReservationController {
@@ -31,9 +33,11 @@ public class ReservationController {
 //	}
 	
 	private final ReservationService reservationService;
+	private final ReservationMapper reservationMapper;
 	
-	public ReservationController(ReservationService reservationService) {
+	public ReservationController(ReservationService reservationService,ReservationMapper reservationMapper) {
 		this.reservationService = reservationService;
+		this.reservationMapper = reservationMapper;
 	}
 
     @GetMapping("/reservations/new")
@@ -66,67 +70,37 @@ public class ReservationController {
 
     @PostMapping("/reservations")
     public String createReservation(
-    		@Valid @ModelAttribute("reservationForm") ReservationForm reservationForm,
-    		BindingResult bindingResult,
-    		Model model) {
-    	
-    	if(bindingResult.hasErrors()) {
-    		return "reservation/form";
-    	}
-    	
-    	Reservation reservation = new Reservation();
-    	
-    	reservation.setName(reservationForm.getName());
-    	reservation.setKana(reservationForm.getKana());
-    	reservation.setBirthday(reservationForm.getBirthday());
-    	reservation.setGender(reservationForm.getGender());
-    	reservation.setPhone(reservationForm.getPhone());
-    	//郵便番号のハイフンを削除
-    	reservation.setPostalCode(reservationForm.getPostalCode().replace("-", ""));
-    	reservation.setAddress(reservationForm.getAddress());
-    	reservation.setEmail(reservationForm.getEmail());
-    
-    	LocalDate today = LocalDate.now();
-    	LocalDate preferredDate = reservationForm.getPreferredDate();
+            @Valid @ModelAttribute("reservationForm") ReservationForm reservationForm,
+            BindingResult bindingResult,
+            Model model) {
 
-    	if (preferredDate == null) {
-    	    preferredDate = today;
-    	} else {
+        if (bindingResult.hasErrors()) {
+            return "reservation/form";
+        }
 
-    	    if (!preferredDate.isAfter(today)) {
-    	        bindingResult.rejectValue(
-    	            "preferredDate",
-    	            "error.preferredDate",
-    	            "ご予約は翌日以降となります"
-    	        );
-    	        return "reservation/form";
-    	    }
-    	}
+        LocalDate today = LocalDate.now();
+        LocalDate preferredDate = reservationForm.getPreferredDate();
 
-    	reservation.setPreferredDate(preferredDate);
-    	reservation.setPreferredTime(reservationForm.getPreferredTime());
-    	reservation.setPrayerType(reservationForm.getPrayerType());
-    	reservation.setNote(reservationForm.getNote());
-    	reservation.setAddressKana(reservationForm.getAddressKana());
-    	
-    	ReservationEntity savedReservation = reservationService.createReservation(reservation);
-    	
-    	model.addAttribute("reservationId", savedReservation.getId());
-    	model.addAttribute("name", savedReservation.getName());
-    	model.addAttribute("kana", savedReservation.getKana());
-    	model.addAttribute("birthday", savedReservation.getBirthday());
-    	model.addAttribute("gender", savedReservation.getGender());
-    	model.addAttribute("phone", savedReservation.getPhone());
-    	model.addAttribute("postalCode", savedReservation.getPostalCode());
-    	model.addAttribute("address", savedReservation.getAddress());
-    	model.addAttribute("email", savedReservation.getEmail());
-    	model.addAttribute("preferredDate", savedReservation.getPreferredDate());
-    	model.addAttribute("preferredTime", savedReservation.getPreferredTime());
-    	model.addAttribute("prayerType", savedReservation.getPrayerType());
-    	model.addAttribute("note", savedReservation.getNote());
-    	model.addAttribute("addressKana", savedReservation.getAddressKana());
-    	
-    	return "reservation/complete";
+        if (preferredDate == null) {
+            preferredDate = today;
+        } else {
+            if (!preferredDate.isAfter(today)) {
+                bindingResult.rejectValue(
+                        "preferredDate",
+                        "error.preferredDate",
+                        "ご予約は翌日以降となります"
+                );
+                return "reservation/form";
+            }
+        }
+
+        Reservation reservation = reservationMapper.toModel(reservationForm, preferredDate);
+
+        ReservationEntity savedReservation = reservationService.createReservation(reservation);
+
+        model.addAttribute("reservation", savedReservation);
+
+        return "reservation/complete";
     }
     
     @GetMapping("/staff/reservations/{id}")

@@ -18,10 +18,15 @@
 	<label for="birthdate">生年月日:</label>
 	<input type="date" id="birthday" name="birthday" th:value="${reservation.birthday}"><br><br>
 	
-	<!--	追加しました-->
-	<label for="gender">性別</label>
-	<input type="radio" th:field="*{gender}" value="MALE">男性
-	<input type="radio" th:field="*{gender}" value="FEMALE">女性
+	<!--	修正しました-->
+	<label>性別</label>
+	<input type="radio" id="genderMale" name="gender" value="MALE"
+	       th:checked="${reservation.gender == 'MALE'}">
+	<label for="genderMale">男性</label>
+
+	<input type="radio" id="genderFemale" name="gender" value="FEMALE"
+	       th:checked="${reservation.gender == 'FEMALE'}">
+	<label for="genderFemale">女性</label><br><br>
 	
 	<label for="phone">電話番号:</label>
 	<input type="text" id="phone" name="phone" th:value="${reservation.phone}"><br><br>
@@ -29,7 +34,7 @@
 	<label for="postalCode">郵便番号:</label>
 	<p>
 		市区町村変更の際は郵便番号の自動入力を使用してください<br>
-		入力値によっては崇敬者管理の管理ができなくなる可能性があります
+		入力値によっては崇敬者管理ができなくなる可能性があります
 	</p>
 	<input type="text" id="postalCode" name="postalCode" th:value="${reservation.postalCode}"><br><br>
 	
