@@ -7,6 +7,9 @@
 </head>
 <body>
     <h1>職員メニュー</h1>
+<!--	今日の日付と六曜-->
+	<p id="todayBox"></p>
+	<p th:if="${errorMsg}" th:text="${errorMsg}"></p>
 <!--adminはアカウント管理のみに変更-->
 	<ul>
 <!--		仮-->
@@ -23,5 +26,7 @@
     <p><a href="/reservations/new">一般予約フォームへ</a></p>
 <!--	将来的にログアウトにする-->
 	<p><a href="/">トップへ</a></p>
+	
+	
 </body>
 </html>
