@@ -11,9 +11,9 @@
 
 <p th:if="${errorMsg}" th:text="${errorMsg}"></p>
 
-<form action="/login" method="post">
+<form th:action="@{/login}" method="post">
     <label for="userId">職員ID:</label>
-    <input type="text" id="userId" name="userId"><br><br>
+    <input type="text" id="userId" name="username"><br><br>
 
     <label for="password">パスワード:</label>
     <input type="password" id="password" name="password"><br><br>
