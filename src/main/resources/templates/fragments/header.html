@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header">
+	<h1>Shrine pray service</h1>
+	
+	<div th:if="${session.loginUser.staffName}">
+		<span th:text="${session.loginUser.staffName}"></span>
+		<span>さん ログイン中</span> 
+		
+		<span>
+			（<span th:text="${session.loginUser.role}"></span>）
+		</span>
+		
+		<form th:action="@{/logout}" method="post" style="display:inline;">
+			<button type="submit">ログアウト</button>
+		</form>
+	</div>
+</header>
+</body>
+</html>
+
+<!--挿入サンプル-->
+<!--<div th:replace="~{fragments/header :: header}"></div>-->

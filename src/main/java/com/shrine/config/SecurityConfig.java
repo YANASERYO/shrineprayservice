@@ -8,13 +8,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.shrine.entity.StaffAccountEntity;
 import com.shrine.model.LoginUser;
+import com.shrine.repository.StaffAccountRepository;
+
 
 @Configuration
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http,StaffAccountRepository staffAccountRepository) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(
@@ -33,7 +36,7 @@ public class SecurityConfig {
             )
             .formLogin(form -> form
                 .loginPage("/login")
-                .successHandler(loginSuccessHandler())
+                .successHandler(loginSuccessHandler(staffAccountRepository))
                 .failureUrl("/login?error")
                 .permitAll()
             )
@@ -49,19 +52,25 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationSuccessHandler loginSuccessHandler() {
+    public AuthenticationSuccessHandler loginSuccessHandler(StaffAccountRepository staffAccountRepository) {
         return (request, response, authentication) -> {
             String username = authentication.getName();
+    		
+    		StaffAccountEntity staffAccount = staffAccountRepository.findByUsername(username)
+                 .orElseThrow();
 
-            boolean isAdmin = authentication.getAuthorities().stream()
-                    .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+         String role = staffAccount.getRole();
 
-            String role = isAdmin ? "ADMIN" : "STAFF";
+//         staffNameをhtmlに表示するためにLoginUserクラスを作成し、セッションに保存
+         LoginUser loginUser = new LoginUser(
+                 staffAccount.getUsername(),
+                 staffAccount.getStaffName(),
+                 role
+         );
 
-            LoginUser loginUser = new LoginUser(username, role);
-            request.getSession().setAttribute("loginUser", loginUser);
+         request.getSession().setAttribute("loginUser", loginUser);
 
-            if (isAdmin) {
+         if ("ADMIN".equals(role)) {
                 response.sendRedirect("/admin");
             } else {
                 response.sendRedirect("/staff");
