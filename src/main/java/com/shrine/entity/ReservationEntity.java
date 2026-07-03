@@ -1,5 +1,3 @@
-//getsetgetsetで記述したけど決まりはあるのか?
-
 package com.shrine.entity;
 
 import java.time.LocalDate;

@@ -28,6 +28,7 @@
             <th>権限</th>
             <th>有効</th>
             <th>作成日時</th>
+			<th>操作</th>
         </tr>
     </thead>
     <tbody>
@@ -38,6 +39,14 @@
             <td th:text="${staff.role}"></td>
             <td th:text="${staff.enabled}"></td>
             <td th:text="${staff.createdAt}"></td>
+			<td>
+			    <form th:action="@{/admin/staff/{id}/toggle-enabled(id=${staff.id})}" method="post">
+			        <button type="submit"
+			                th:text="${staff.enabled ? '切替' : '切替'}">
+			            切替
+			        </button>
+			    </form>
+			</td>
         </tr>
     </tbody>
 </table>
