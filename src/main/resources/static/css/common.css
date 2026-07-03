@@ -3,6 +3,9 @@
    全画面共通の最低限
 ========================= */
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700&display=swap');
+
+
 :root {
     --color-main: #8b1e1e;
     --color-main-dark: #6f1717;
@@ -27,7 +30,7 @@ body {
 }
 
 body {
-    font-family: "Yu Gothic", "Meiryo", sans-serif;
+	font-family: "Noto Serif JP", serif;
     background-color: var(--color-bg);
     color: var(--color-text);
     line-height: 1.7;
@@ -69,6 +72,18 @@ input[type="submit"] {
 .site-header {
     background-color: var(--color-main);
     color: var(--color-white);
+}
+
+.site-header_logo{
+	width: 48px ;
+	    height: auto ;
+	    display: block ;
+		display: block ;
+		margin: 0 auto;
+}
+
+.login-status{
+	text-align: right;
 }
 
 .header-inner {

@@ -3,23 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" th:href="@{/css/common.css}">
 <link rel="stylesheet" th:href="@{/css/responsive.css}">
 <title>神社受付・管理システム</title>
 </head>
 <body>
-	
 	<h1>神社受付・管理システム</h1>
 	<h2>参拝者用メニュー</h2>
-	<ul>
-		<li><a href="/reservations/new">参拝者様の祈願受付はこちら</a></li>
-	</ul>
-	
-	<h2>職員用メニュー</h2>
-	<p>職員ID・パスワードを入力の上、メニューを選択してください</p>
-	<ul>
-		<li><a href="/login">職員ログインへ</a></li>
-	</ul>
-	
-
+		<ul>
+			<li><a href="/reservations/new">祈願受付はこちら</a></li>
+<!--			祈願処理を作成したら下記に切り替える-->
+<!--			<li><a href="/prayers">祈願受付はこちら</a></li>-->
+			<li><a href="">お守り・お札の郵送依頼はこちら</a></li>
+			<li><a href="">祭典・総会の出席はこちら</a></li>	
+		</ul>
+		<h2>職員用</h2>
+		<p>職員ID・パスワードを入力の上、メニューを選択してください</p>
+		<ul>
+			<li><a href="/login">職員ログインへ</a></li>
+		</ul>
 </body>
 </html>

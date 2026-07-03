@@ -1,0 +1,106 @@
+<!--20260703フロントだけ作成
+reservation/newへ飛ばしてform.htmlに反映する予定-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>御祈願の種類選択</title>
+</head>
+<body>
+
+<h1>御祈願の種類を選択してください</h1>
+
+<section>
+	<h2>個人にてお越しの方</h2>
+
+	<div class="prayer-list">
+
+		<a th:href="@{/form(applicantType='PERSONAL', prayerType='YAKUBARAI')}" class="prayer-card">
+			<h3>厄祓</h3>
+			<p>厄年や人生の節目に、災厄を祓い清めます。</p>
+		</a>
+
+		<a th:href="@{/form(applicantType='PERSONAL', prayerType='FAMILY_SAFETY')}" class="prayer-card">
+			<h3>家内安全</h3>
+			<p>ご家族の安全と日々の平穏を祈願します。</p>
+		</a>
+
+		<a th:href="@{/form(applicantType='PERSONAL', prayerType='WISH_FULFILLMENT')}" class="prayer-card">
+			<h3>心願成就</h3>
+			<p>心に願うことの成就を祈願します。</p>
+		</a>
+
+		<a th:href="@{/form(applicantType='PERSONAL', prayerType='GRATITUDE')}" class="prayer-card">
+			<h3>神恩感謝</h3>
+			<p>日々のご加護や願いが叶ったことへの感謝をお伝えします。</p>
+		</a>
+
+		<a th:href="@{/form(applicantType='PERSONAL', prayerType='TRAFFIC_SAFETY')}" class="prayer-card">
+			<h3>交通安全</h3>
+			<p>車や日々の移動の安全を祈願します。</p>
+		</a>
+
+		<a th:href="@{/form(applicantType='PERSONAL', prayerType='RECOVERY')}" class="prayer-card">
+			<h3>病気平癒</h3>
+			<p>病の回復と心身の健やかさを祈願します。</p>
+		</a>
+
+		<a th:href="@{/form(applicantType='PERSONAL', prayerType='FIRST_VISIT')}" class="prayer-card">
+			<h3>初宮詣</h3>
+			<p>お子さまの誕生を感謝し、健やかな成長を祈願します。</p>
+		</a>
+
+		<a th:href="@{/form(applicantType='PERSONAL', prayerType='SAFE_DELIVERY')}" class="prayer-card">
+			<h3>安産祈願</h3>
+			<p>母子の健康と無事な出産を祈願します。</p>
+		</a>
+
+		<a th:href="@{/form(applicantType='PERSONAL', prayerType='EXAM_SUCCESS')}" class="prayer-card">
+			<h3>合格祈願</h3>
+			<p>受験や資格試験などの合格を祈願します。</p>
+		</a>
+
+		<a th:href="@{/form(applicantType='PERSONAL', prayerType='SHICHI_GO_SAN')}" class="prayer-card">
+			<h3>七五三</h3>
+			<p>お子さまの成長を感謝し、今後の無事を祈願します。</p>
+		</a>
+
+		<a th:href="@{/form(applicantType='PERSONAL', prayerType='OTHER_PERSONAL')}" class="prayer-card">
+			<h3>その他</h3>
+			<p>上記以外の御祈願をご希望の方はこちらをお選びください。</p>
+		</a>
+
+	</div>
+</section>
+
+<section>
+	<h2>会社・団体にてお越しの方</h2>
+
+	<div class="prayer-list">
+
+		<a th:href="@{/form(applicantType='GROUP', prayerType='BUSINESS_SAFETY_PROSPERITY')}" class="prayer-card">
+			<h3>業務安全・商売繁盛</h3>
+			<p>事業の安全、社業の発展、商売繁盛を祈願します。</p>
+		</a>
+
+		<a th:href="@{/form(applicantType='GROUP', prayerType='GROUP_EXAM_SUCCESS')}" class="prayer-card">
+			<h3>合格祈願</h3>
+			<p>学校・塾・団体などでの合格祈願をご希望の方はこちらをお選びください。</p>
+		</a>
+
+		<a th:href="@{/form(applicantType='GROUP', prayerType='VICTORY')}" class="prayer-card">
+			<h3>必勝祈願</h3>
+			<p>大会・試合・選挙などに向けて、必勝を祈願します。</p>
+		</a>
+
+		<a th:href="@{/form(applicantType='GROUP', prayerType='OTHER_GROUP')}" class="prayer-card">
+			<h3>その他</h3>
+			<p>上記以外の会社・団体での御祈願はこちらをお選びください。</p>
+		</a>
+
+	</div>
+</section>
+</body>
+</html>

@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<header th:fragment="header">
-	<h1>Shrine pray service</h1>
+<header th:fragment="header" class="site-header">
 	
-	<div th:if="${session.loginUser.staffName}">
+	<div class="site-header__logo-area">
+		<a th:href="@{/}" class="site-header__logo-link">
+			<img th:src="@{/images/logo.png}" alt="神社ロゴ" class="site-header_logo">
+		</a>
+	</div>
+	<div th:if="${session.loginUser.staffName}" class="login-status">
 		<span th:text="${session.loginUser.staffName}"></span>
 		<span>さん ログイン中</span> 
-		
 		<span>
 			（<span th:text="${session.loginUser.role}"></span>）
 		</span>

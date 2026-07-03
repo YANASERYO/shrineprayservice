@@ -93,6 +93,7 @@ public class ReservationService {
     public long countAllReservations() {
         return reservationPrayCountRepository.count();
     }
+
     
     
 }

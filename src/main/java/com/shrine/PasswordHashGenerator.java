@@ -1,5 +1,3 @@
-//ハッシュ生成テスト用
-
 //package com.shrine;
 //
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
