@@ -5,25 +5,29 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" th:href="@{/css/common.css}">
 <link rel="stylesheet" th:href="@{/css/responsive.css}">
+<link rel="stylesheet" th:href="@{/css/login.css}">
 <title>職員ログイン</title>
 </head>
 <body>
-
-<h1>職員ログイン</h1>
-
-<p th:if="${errorMsg}" th:text="${errorMsg}"></p>
-
-<form th:action="@{/login}" method="post">
-    <label for="userId">職員ID:</label>
-    <input type="text" id="userId" name="username"><br><br>
-
-    <label for="password">パスワード:</label>
-    <input type="password" id="password" name="password"><br><br>
-
-    <button type="submit">ログイン</button>
-</form>
-
-<p><a href="/">トップページへ戻る</a></p>
+<main class="login-page">
+	<div class="login-box">
+		<h1>職員ログイン</h1>
+		
+		<p th:if="${errorMsg}" th:text="${errorMsg}"></p>
+		
+		<form th:action="@{/login}" method="post">
+		    <label for="userId">職員ID</label>
+		    <input type="text" id="userId" name="username"><br><br>
+		
+		    <label for="password">パスワード</label>
+		    <input type="password" id="password" name="password"><br><br>
+		
+		    <button type="submit">ログイン</button>
+		</form>
+		
+		<p><a href="/">トップページへ戻る</a></p>
+	</div>
+</main>
 
 </body>
 </html>

@@ -6,30 +6,99 @@
     <title>職員メニュー</title>
 	<link rel="stylesheet" th:href="@{/css/common.css}">
 	<link rel="stylesheet" th:href="@{/css/responsive.css}">
+	<link rel="stylesheet" th:href="@{/css/staff-menu.css}">
 </head>
 <body>
 	<div th:replace="~{fragments/header :: header}"></div>
-    <h1>職員メニュー</h1>
-<!--	今日の日付と六曜-->
-	<p id="todayBox"></p>
-	<p th:if="${errorMsg}" th:text="${errorMsg}"></p>
-<!--adminはアカウント管理のみに変更-->
-	<ul>
-<!--		仮-->
-		<li><a href="/staff/reservations">祈願予約管理</a></li>
-		<li><a href="#">お祭り・行事出席管理</a></li>
-		<li><a href="#">授与品郵送受付管理</a></li>
-		<li><a href="#">スケジュール管理</a></li>
-		<li><a href="#">在庫管理</a></li>
-		<li><a href="#">帳簿管理</a></li>
-		<li><a href="#">崇敬者・参拝者管理</a></li>
-<!--		<li th:if="${session.loginUser.admin}"><a href="#">職員アカウント管理</a></li>-->
-    </ul>
+	<main class="staff-menu-container">
+		<div class="menu-list">
+				
+		    <h1>職員メニュー</h1>
+		<!--adminはアカウント管理のみに変更-->
+			<ul>
+		<!--		仮-->
+				<li><a href="/staff/reservations">祈願予約管理</a></li>
+				<li><a href="#">お祭り・行事出席管理</a></li>
+				<li><a href="#">授与品郵送受付管理</a></li>
+				<li><a href="#">スケジュール管理</a></li>
+				<li><a href="#">在庫管理</a></li>
+				<li><a href="#">帳簿管理</a></li>
+				<li><a href="#">崇敬者・参拝者管理</a></li>
+		<!--		<li th:if="${session.loginUser.admin}"><a href="#">職員アカウント管理</a></li>-->
+		    </ul>
+		
+		    <p><a href="/reservations/new">一般予約フォームへ</a></p>
+		<!--	将来的にログアウトにする-->
+			<p><a href="/">トップへ</a></p>
+		</div>
+		<section class="free-area2">
+			<p id="todayBox"></p>
+			<p th:if="${errorMsg}" th:text="${errorMsg}"></p>	
+		</section>
+		
+		<section class="calendar-area">
+			<p>ここに祈願予定カレンダーを表示</p>
+		</section>
+		
+		<section class="notice-area">
+			<h2>掲示板</h2>
 
-    <p><a href="/reservations/new">一般予約フォームへ</a></p>
-<!--	将来的にログアウトにする-->
-	<p><a href="/">トップへ</a></p>
-	
-	
+			<div th:if="${#lists.isEmpty(notices)}">
+				<p>まだ投稿はありません。</p>
+			</div>
+
+			<article th:each="notice : ${notices}" class="notice-card">
+				<h3 th:text="${notice.title}">タイトル</h3>
+
+				<p class="notice-meta">
+					投稿者：
+					<span th:text="${notice.staffAccount.staffName}">職員名</span>
+				</p>
+
+				<p class="notice-meta">
+					投稿日：
+					<span th:text="${#temporals.format(notice.createdAt, 'yyyy/MM/dd HH:mm')}">
+					2026/07/04 12:00
+				</span>
+				</p>
+
+				<p class="notice-content" th:text="${notice.content}">
+					本文
+				</p>
+			</article>
+		</section>
+		<section class="news-area">
+			<h2>ニュース</h2>
+			<p>ここにニュースやお知らせを表示予定</p>
+		</section>
+
+		<!-- 下中央：自由枠 -->
+		<section class="free-area">
+			<h2>なにかに使用する</h2>
+		</section>
+
+		<!-- 下右：掲示板フォーム -->
+		<section class="notice-form-area">
+			<h2>掲示板フォーム</h2>
+
+			<form th:action="@{/staff/notices/create}" method="post" th:object="${notice}">
+				<div class="form-group">
+					<label for="title">タイトル</label>
+					<input type="text" id="title" th:field="*{title}" required>
+				</div>
+
+				<div class="form-group">
+					<label for="content">本文</label>
+					<textarea id="content" th:field="*{content}" rows="4" required></textarea>
+				</div>
+
+				<div class="form-button">
+					<button type="submit">投稿する</button>
+				</div>
+			</form>
+		</section>
+
+	</main>
+	<script th:src="@{/js/today.js}"></script>
 </body>
 </html>

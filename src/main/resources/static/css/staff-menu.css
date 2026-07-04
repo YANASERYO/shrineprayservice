@@ -1,0 +1,53 @@
+.staff-menu-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1.5fr;
+  grid-template-rows: 240px 180px 160px;
+  gap: 16px;
+  grid-template-areas:
+    "menu-list calendar-area notice-area"
+    "menu-list calendar-area notice-form-area"
+    "free-area2 free-area news-area";
+  padding: 16px;
+}
+
+.calendar-area {
+  grid-area: calendar-area;
+}
+
+.menu-list {
+  grid-area: menu-list;
+}
+
+.notice-area {
+  grid-area: notice-area;
+  overflow-y: auto;
+}
+
+.notice-form-area {
+  grid-area: notice-form-area;
+}
+
+.free-area {
+  grid-area: free-area;
+}
+
+.news-area {
+  grid-area: news-area;
+}
+
+.free-area2 {
+  grid-area: free-area2;
+}
+
+.menu-list,
+.calendar-area,
+.notice-area,
+.notice-form-area,
+.free-area,
+.news-area,
+.free-area2 {
+  border: 1px solid #b00000;
+  padding: 12px;
+  background-color: #f8f5ed;
+  box-sizing: border-box;
+}
