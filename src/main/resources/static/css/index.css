@@ -1,0 +1,63 @@
+.index-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 64px 24px;
+  text-align: center;
+}
+
+.index-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.index-title {
+  margin-bottom: 48px;
+  color: #8b0000;
+  letter-spacing: 0.08em;
+}
+
+.index-section {
+  margin-bottom: 48px;
+}
+
+.index-section h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.index-section p {
+  margin-bottom: 20px;
+  line-height: 1.8;
+}
+
+.index-button-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.index-button {
+  display: block;
+  width: 320px;
+  max-width: 100%;
+  padding: 14px 24px;
+  border: 1px solid #9b0000;
+  background-color: #f8f5ed;
+  color: #9b0000;
+  text-decoration: none;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  box-sizing: border-box;
+}
+
+.index-button:hover {
+  background-color: #9b0000;
+  color: #fff;
+}
+
+.staff-exp {
+  text-align: center;
+  margin-top: 16px;
+}

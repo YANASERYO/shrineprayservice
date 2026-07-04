@@ -1,13 +1,14 @@
 .staff-menu-container {
   display: grid;
   grid-template-columns: 1fr 2fr 1.5fr;
-  grid-template-rows: 240px 180px 160px;
-  gap: 16px;
+  grid-template-rows: 240px 1fr 160px;
+  gap: 8px;
   grid-template-areas:
     "menu-list calendar-area notice-area"
-    "menu-list calendar-area notice-form-area"
+    "menu-list calendar-area notice-area"
     "free-area2 free-area news-area";
-  padding: 16px;
+  padding: 8px;
+  min-height: calc(100vh - 90px);
 }
 
 .calendar-area {
@@ -16,15 +17,6 @@
 
 .menu-list {
   grid-area: menu-list;
-}
-
-.notice-area {
-  grid-area: notice-area;
-  overflow-y: auto;
-}
-
-.notice-form-area {
-  grid-area: notice-form-area;
 }
 
 .free-area {
@@ -39,15 +31,150 @@
   grid-area: free-area2;
 }
 
-.menu-list,
+
 .calendar-area,
 .notice-area,
-.notice-form-area,
 .free-area,
 .news-area,
 .free-area2 {
   border: 1px solid #b00000;
-  padding: 12px;
+  padding: 8px;
   background-color: #f8f5ed;
   box-sizing: border-box;
+}
+
+/* 掲示板エリア */
+.notice-area {
+  grid-area: notice-area;
+  box-sizing: border-box;
+  padding: 16px;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.notice-area h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+/* 掲示板一覧 */
+.notice-list {
+  overflow-y: auto;
+  margin-bottom: 12px;
+  min-height: 0;
+}
+
+/* 投稿カード */
+.notice-card {
+  border-bottom: 1px solid #ccc;
+  padding: 8px 0;
+}
+
+.notice-card h3 {
+  margin: 0 0 4px;
+  font-size: 1rem;
+}
+
+.notice-card p {
+  margin: 0 0 4px;
+}
+
+/* 投稿フォームを掲示板エリアの一番下へ */
+.notice-form {
+  margin-top: auto;
+  width: 100%;
+}
+
+.notice-form form {
+  width: 100%;
+}
+
+.notice-area hr {
+  margin: 10px 0;
+}
+
+/* 掲示板フォーム */
+.notice-area .form-group {
+  margin-bottom: 4px;
+}
+
+.notice-area label {
+  display: block;
+  margin-bottom: 2px;
+}
+
+.notice-area input,
+.notice-area textarea {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.notice-area textarea {
+  height: 40px;
+  resize: vertical;
+}
+
+.notice-area .form-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 6px;
+}
+
+.notice-area .form-button button {
+  width: auto;
+  padding: 6px 18px;
+}
+
+/* 職員メニュー */
+.menu-list {
+  padding: 0px;
+}
+
+.menu-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0px 0;
+}
+
+.menu-list li {
+  margin-bottom: 10px;
+}
+
+.menu-list li a {
+  display: block;
+  padding: 9px 14px;
+  border: 1px solid rgba(139, 0, 0, 0.35);
+  border-left: 5px solid #8b0000;
+  background: linear-gradient(90deg, #fffaf0, #f8f5ed);
+  color: #8b0000;
+  text-decoration: none;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  transition: 0.2s;
+}
+
+.menu-list li a:hover {
+  background: #8b0000;
+  color: #fffaf0;
+  transform: translateX(4px);
+}
+
+.menu-list p {
+  margin: 14px 0 0;
+}
+
+.menu-list p a {
+  display: block;
+  padding: 8px 12px;
+  color: #6f0000;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(139, 0, 0, 0.3);
+}
+
+.menu-list p a:hover {
+  color: #b00000;
+  background-color: rgba(139, 0, 0, 0.08);
 }
