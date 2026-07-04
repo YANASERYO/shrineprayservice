@@ -44,44 +44,43 @@
 		
 		<section class="notice-area">
 			<h2>掲示板</h2>
-
-			<div th:if="${#lists.isEmpty(notices)}">
-				<p>まだ投稿はありません。</p>
+			<div class="notice-list">
+				<div th:if="${#lists.isEmpty(notices)}">
+					<p>まだ投稿はありません。</p>
+				</div>
+	
+				<article th:each="notice : ${notices}" class="notice-card">
+					<h3 th:text="${notice.title}">タイトル</h3>
+	
+					<p class="notice-content" th:text="${notice.content}">
+						本文
+					</p>
+					
+					<p class="notice-meta">
+						投稿者：
+						<span th:text="${notice.staffAccount.staffName}">職員名</span>
+					</p>
+	
+					<p class="notice-meta">
+						投稿日：
+						<span th:text="${#temporals.format(notice.createdAt, 'yyyy/MM/dd HH:mm')}">
+						2026/07/04 12:00
+					</span>
+					</p>
+	
+				</article>
 			</div>
-
-			<article th:each="notice : ${notices}" class="notice-card">
-				<h3 th:text="${notice.title}">タイトル</h3>
-
-				<p class="notice-meta">
-					投稿者：
-					<span th:text="${notice.staffAccount.staffName}">職員名</span>
-				</p>
-
-				<p class="notice-meta">
-					投稿日：
-					<span th:text="${#temporals.format(notice.createdAt, 'yyyy/MM/dd HH:mm')}">
-					2026/07/04 12:00
-				</span>
-				</p>
-
-				<p class="notice-content" th:text="${notice.content}">
-					本文
-				</p>
-			</article>
 			<div class="notice-form">
 				<form th:action="@{/staff/notices/create}" method="post" th:object="${notice}">
 					<div class="form-group">
-						<label for="title">タイトル</label>
+						<label for="title"></label>
 						<input type="text" id="title" th:field="*{title}" placeholder="例：明日の祈願受付について" required>
 					</div>
 	
-					<div class="form-group">
-						<label for="content">本文</label>
+					<div class="notice-content-row">
+						<label for="content"></label>
 						<textarea id="content" th:field="*{content}" rows="4" placeholder="例：明日は10時より団体祈願があります。受付時に確認をお願いします。" required></textarea>
-					</div>
-	
-					<div class="form-button">
-						<button type="submit">投稿する</button>
+						<button type="submit" class="notice-submit-button">投稿する</button>
 					</div>
 				</form>
 			</div>
