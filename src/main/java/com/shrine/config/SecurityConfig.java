@@ -63,6 +63,7 @@ public class SecurityConfig {
 
 //         staffNameをhtmlに表示するためにLoginUserクラスを作成し、セッションに保存
          LoginUser loginUser = new LoginUser(
+        		 				 staffAccount.getId(),
                  staffAccount.getUsername(),
                  staffAccount.getStaffName(),
                  role

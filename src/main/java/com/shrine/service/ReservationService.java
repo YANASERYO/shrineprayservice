@@ -93,6 +93,11 @@ public class ReservationService {
     public long countAllReservations() {
         return reservationPrayCountRepository.count();
     }
+    
+    public long countTodayPrayed() {
+		LocalDate today = LocalDate.now();
+		return reservationPrayCountRepository.countByPrayedTrueAndPreferredDate(today);
+	}
 
     
     

@@ -15,7 +15,13 @@
 		<!--adminはアカウント管理のみに変更-->
 			<ul>
 		<!--		仮-->
-				<li><a href="/staff/reservations">祈願予約管理</a></li>
+				<li>
+					<a href="/staff/reservations">祈願予約管理<br>
+						<span class="menu-count">
+							未祈願：<span th:text="${todayUnprayedCount}">0</span>件　
+							祈願済：<span th:text="${todayPrayedCount}">0</span>件
+						</span>
+					</a></li>
 				<li><a href="#">お祭り・行事出席管理</a></li>
 				<li><a href="#">授与品郵送受付管理</a></li>
 				<li><a href="#">スケジュール管理</a></li>

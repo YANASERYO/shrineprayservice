@@ -13,4 +13,6 @@ public interface ReservationPrayCountRepository extends JpaRepository<Reservatio
     long countByPrayedTrue();
 
     long countByPrayedFalseAndPreferredDateAfter(LocalDate preferredDate);
+    
+    long countByPrayedTrueAndPreferredDate(LocalDate preferredDate);
 }

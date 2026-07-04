@@ -32,11 +32,11 @@ public class StaffNoticeController {
         LoginUser loginUser = (LoginUser) session.getAttribute("loginUser");
         
         if (loginUser == null) {
-            return "redirect:login";
+            return "redirect:/login";
         }
         
         StaffAccountEntity staffAccount = staffAccountRepository
-        		.findById(Long.valueOf(loginUser.getUserId()))
+        		.findById(loginUser.getStaffAccountId())
         		.orElseThrow();
         
         notice.setStaffAccount(staffAccount);

@@ -9,14 +9,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.shrine.entity.StaffNoticeEntity;
+import com.shrine.service.ReservationService;
 import com.shrine.service.StaffNoticeService;
 
 @Controller
 public class StaffController {
 	
 	private final StaffNoticeService staffNoticeService;
+	private final ReservationService reservationService;
 
-	public StaffController(StaffNoticeService staffNoticeService) {
+	public StaffController(StaffNoticeService staffNoticeService, ReservationService reservationService) {	
+		this.reservationService = reservationService;
 		this.staffNoticeService = staffNoticeService;
 	}
 	
@@ -31,7 +34,11 @@ public class StaffController {
         
         model.addAttribute("notices", notices);
         model.addAttribute("notice", new StaffNoticeEntity());
-
+        
+        model.addAttribute("todayUnprayedCount", reservationService.countTodayUnprayed());
+        model.addAttribute("todayPrayedCount", reservationService.countTodayPrayed());
+        
+        
         return "staff/menu";
     }
 }
