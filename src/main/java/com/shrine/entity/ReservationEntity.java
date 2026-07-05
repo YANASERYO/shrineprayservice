@@ -35,6 +35,8 @@ public class ReservationEntity {
     //祈願日
     private LocalDateTime prayedAt;
     private String addressKana;
+    
+    private Integer prayAmount;
     //入力日
     private LocalDateTime createdAt;
     //prayedの更新日
@@ -88,11 +90,16 @@ public class ReservationEntity {
     public String getAddressKana() {return addressKana;}
     public void setAddressKana(String addressKana) {this.addressKana = addressKana;}
     
+    public Integer getPrayAmount() {return prayAmount;}
+    public void setPrayAmount(Integer prayAmount) {this.prayAmount = prayAmount;}
+    
     //WarekiUtilclassを作成
     public String getBirthdayWareki() {
         return WarekiUtil.toWareki(this.birthday);
         
     }
+    
+    
     
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }

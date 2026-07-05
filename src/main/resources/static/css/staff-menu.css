@@ -103,6 +103,7 @@
 
 .notice-card p {
   margin: 0 0 4px;
+  font-size: 0.75rem;
 }
 
 .notice-meta {
@@ -187,7 +188,7 @@
 
 .menu-list li a {
   display: block;
-  padding: 9px 14px;
+  padding: 8px 12px;
   border: 1px solid rgba(139, 0, 0, 0.35);
   border-left: 5px solid #8b0000;
   background: linear-gradient(90deg, #fffaf0, #f8f5ed);
