@@ -195,11 +195,11 @@ public class ReservationController {
     
     //祈願済にする
     @PostMapping("/staff/reservations/{id}/pray")
-	public String markAsPrayed(@PathVariable Long id,HttpSession session) {
+	public String markAsPrayed(@PathVariable Long id,@RequestParam Integer prayAmount,HttpSession session) {
     		if (session.getAttribute("loginUser") == null) {
             return "redirect:/login";
         }
-    		reservationService.markAsPrayed(id);
+    		reservationService.markAsPrayed(id,prayAmount);
     				return "redirect:/staff/reservations";
     }
 		

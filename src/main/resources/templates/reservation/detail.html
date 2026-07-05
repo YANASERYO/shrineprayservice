@@ -36,10 +36,9 @@
         <th>電話番号</th>
         <td th:text="${reservation.phone}"></td>
     </tr>
-	    <tr>
         <th>郵便番号</th>
-        <td th:text="${reservation.postalCode}">		
-	</td>
+        <td th:text="${reservation.postalCode}"></td>		
+	</tr>
     <tr>
         <th>住所</th>
         <td th:text="${reservation.address}"></td>
@@ -60,6 +59,21 @@
         <th>祈願の種類</th>
         <td th:text="${reservation.prayerType}"></td>
     </tr>
+	<tr>
+	    <th>初穂料</th>
+	    <td>
+	        <span th:if="${reservation.prayAmount != null}" th:text="${reservation.prayAmount + '円'}"></span>
+	        <span th:if="${reservation.prayAmount == null}">未登録</span>
+	    </td>
+	</tr>
+
+	<tr>
+	    <th>奉仕状況</th>
+	    <td>
+	        <span th:if="${reservation.prayed == true}">奉仕済</span>
+	        <span th:if="${reservation.prayed != true}">未奉仕</span>
+	    </td>
+	</tr>
     <tr>
         <th>備考</th>
         <td th:text="${reservation.note}"></td>

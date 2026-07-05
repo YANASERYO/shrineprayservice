@@ -57,6 +57,16 @@ public class ReservationEntity {
     public String getGender() { return gender; }
     public void setGender(String gender) { this.gender = gender; }
     
+    public String getGenderLabel() {
+        if ("MALE".equals(this.gender)) {
+            return "男性";
+        }
+        if ("FEMALE".equals(this.gender)) {
+            return "女性";
+        }
+        return "";
+    }
+    
     public String getPhone() { return phone; }
     public void setPhone(String phone) { this.phone = phone; }
     
@@ -108,8 +118,9 @@ public class ReservationEntity {
     public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt; }
     
 //    ReservationServiceより移動させた
-    public void markAsPrayed() {
+    public void markAsPrayed(Integer prayAmount) {
         LocalDateTime now = LocalDateTime.now();
+        this.prayAmount = prayAmount;
         this.prayed = true;
         this.prayedAt = now;
         this.updatedAt = now;

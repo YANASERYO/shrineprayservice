@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.reservation-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.reservation-table th,
+.reservation-table td {
+	padding: 6px 4px;
+}
+
+.reservation-table tbody {
+	border-top: 2px solid #999;
+	border-bottom: 2px solid #999;
+}

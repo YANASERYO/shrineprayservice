@@ -67,12 +67,12 @@ public class ReservationService {
 	}
 	
 //	祈願済の処理、entityが処理できるように変更した
-    public void markAsPrayed(Long id) {
+    public void markAsPrayed(Long id, Integer prayAmount) {
         ReservationEntity reservation = reservationRepository.findById(id).orElse(null);
         if (reservation == null) {
         		return;
         }
-        reservation.markAsPrayed();
+        reservation.markAsPrayed(prayAmount);
         reservationRepository.save(reservation);
     }
     

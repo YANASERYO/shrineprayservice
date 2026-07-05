@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" th:href="@{/css/common.css}">
 <link rel="stylesheet" th:href="@{/css/responsive.css}">
+<link rel="stylesheet" th:href="@{/css/reservation/list.css}">
 <title>祈願予約一覧</title>
 </head>
 <body>
@@ -26,55 +27,81 @@
 	    全件（<span th:text="${allCount}">0</span>）
 	</a>
 </div>
-<table border="1">
-    <tr>
-        <th>予約番号</th>
-        <th>氏名</th>
-        <th>かな</th>
-        <th>生年月日</th>
-<!--    		<th>電話番号</th>-->
-<!--			<th>郵便番号</th>-->
-		<th>性別</th>
-        <th>住所</th>
-		<th>住所読み</th>
-<!--    		<th>メール</th>-->
-        <th>祈願日</th>
-		<th>祈願希望時刻</th>
-        <th>祈願の種類</th>
-		<th>備考</th>
-		<th>初穂料</th>
-		<th>ステータス</th>
-		<th>祈願処理</th>
-		<th>詳細</th>
-    </tr>
+<table border="1" class="reservation-table">
+	<colgroup>
+		<col style="width: 5%;">
+		<col style="width: 9%;">
+		<col style="width: 10%;">
+		<col style="width: 18%;">
+		<col style="width: 29%;">
+		<col style="width: 12%;">
+		<col style="width: 12%;">
+		<col style="width: 5%;">
+	</colgroup>
 
-    <tr th:each="reservation : ${reservations}">
-        <td th:text="${reservation.id}"></td>
-        <td th:text="${reservation.name}"></td>
-        <td th:text="${reservation.kana}"></td>
-        <td th:text="${reservation.birthdayWareki}"></td>
-<!--        <td th:text="${reservation.phone}"></td>-->
-<!--			<td th:text="${reservation.postalCode}"></td>-->
-        <td th:text="${reservation.gender}"></td>
-		<td th:text="${reservation.address}"></td>
-		<td th:text="${reservation.addressKana}"></td>
-<!--        <td th:text="${reservation.email}"></td>-->
-        <td th:text="${reservation.preferredDate}"></td>
-		<td th:text="${reservation.preferredTime}"></td>
-        <td th:text="${reservation.prayerType}"></td>
-        <td th:text="${reservation.note}"></td>
-		<td th:text="${reservation.prayAmount}"></td>
-		<td th:text="${reservation.prayed ? '祈願済み' : '未祈願'}"></td>
-		<td>
-			<form th:if="${!reservation.prayed}"
-				th:action="@{/staff/reservations/{id}/pray(id=${reservation.id})}"
-				method="post">
-				<button type="submit">祈願済にする</button>
-			</form>
-			<span th:if="${reservation.prayed}">完了</span>
-		</td>
-		<td><a th:href="@{/staff/reservations/{id}(id=${reservation.id})}">詳細</a></td>
-    </tr>
+	<tr>
+		<th rowspan="2">予約番号</th>
+		<th>かな</th>
+		<th>生年月日</th>
+		<th>祈願の種類</th>
+		<th>住所読み</th>
+		<th>備考</th>
+		<th>状態</th>
+		<th>詳細</th>
+	</tr>
+	<tr>
+		<th>氏名</th>
+		<th>性別</th>
+		<th>祈願日</th>
+		<th>住所</th>
+		<th>希望時刻</th>
+		<th>初穂料</th>
+		<th>処理</th>
+	</tr>
+
+	<tbody th:each="reservation : ${reservations}">
+		<tr>
+			<td rowspan="2" th:text="${reservation.id}"></td>
+			<td th:text="${reservation.kana}"></td>
+			<td th:text="${reservation.birthdayWareki}"></td>
+			<td th:text="${reservation.prayerType}"></td>
+			<td th:text="${reservation.addressKana}"></td>
+			<td th:text="${reservation.note}"></td>
+			<td th:text="${reservation.prayed ? '祈願済み' : '未祈願'}"></td>
+			<td>
+				<a th:href="@{/staff/reservations/{id}(id=${reservation.id})}">詳細</a>
+			</td>
+		</tr>
+
+		<tr>
+			<td th:text="${reservation.name}"></td>
+			<td th:text="${reservation.genderLabel}"></td>
+			<td th:text="${reservation.preferredDate}"></td>
+			<td th:text="${reservation.address}"></td>
+			<td th:text="${reservation.preferredTime}"></td>
+			<td>
+				<span th:if="${reservation.prayed}"
+					th:text="${reservation.prayAmount != null ? reservation.prayAmount + '円' : '-'}"></span>
+				<input th:if="${!reservation.prayed}"
+					type="number"
+					name="prayAmount"
+					min="0"
+					step="1000"
+					placeholder="初穂料"
+					th:attr="form=${'prayForm__' + reservation.id}"
+					required>
+			</td>
+			<td>
+				<form th:if="${!reservation.prayed}"
+					th:id="${'prayForm__' + reservation.id}"
+					th:action="@{/staff/reservations/{id}/pray(id=${reservation.id})}"
+					method="post">
+					<button type="submit">祈願済にする</button>
+				</form>
+				<span th:if="${reservation.prayed}">完了</span>
+			</td>
+		</tr>
+	</tbody>
 </table>
 </body>
 </html>
