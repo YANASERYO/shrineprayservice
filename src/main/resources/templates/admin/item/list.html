@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/responsive.css}">
+<title>授与品マスタ管理</title>
+</head>
+<body>
+
+<header th:replace="~{fragments/header :: header}"></header>
+
+<main class="main-container">
+
+    <h1>授与品管理</h1>
+
+    <div>
+        <a th:href="@{/admin/item/create}">新規登録</a>
+    </div>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>授与品名</th>
+                <th>分類</th>
+                <th>用途</th>
+                <th>色</th>
+                <th>初穂料</th>
+                <th>在庫数</th>
+                <th>在庫下限</th>
+                <th>表示状態</th>
+                <th>並び順</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.category}"></td>
+                <td th:text="${item.usageType}"></td>
+                <td th:text="${item.color}"></td>
+                <td th:text="${item.price}"></td>
+                <td th:text="${item.stock}"></td>
+                <td th:text="${item.lowStock}"></td>
+                <td th:text="${item.active} ? '表示中' : '非表示'"></td>
+                <td th:text="${item.sortOrder}"></td>
+                <td>
+                    <a th:href="@{/admin/item/edit/{id}(id=${item.id})}">編集</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</main>
+
+</body>
+</html>

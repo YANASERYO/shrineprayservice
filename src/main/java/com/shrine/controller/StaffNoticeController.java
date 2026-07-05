@@ -3,6 +3,7 @@ package com.shrine.controller;
 import jakarta.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.shrine.entity.StaffAccountEntity;
@@ -10,6 +11,7 @@ import com.shrine.entity.StaffNoticeEntity;
 import com.shrine.model.LoginUser;
 import com.shrine.repository.StaffAccountRepository;
 import com.shrine.service.StaffNoticeService;
+
 
 
 @Controller
@@ -39,10 +41,20 @@ public class StaffNoticeController {
         		.findById(loginUser.getStaffAccountId())
         		.orElseThrow();
         
-        notice.setStaffAccount(staffAccount);
-        
-        staffNoticeService.createNotice(notice);
+        staffNoticeService.createNotice(notice, staffAccount);
         
         return "redirect:/staff";
     }
+    
+    @PostMapping("/staff/notices/{id}/delete")
+    public String delete(@PathVariable Long id,HttpSession session) {
+		LoginUser loginUser = (LoginUser) session.getAttribute("loginUser");
+		
+		if (loginUser == null) {
+			return "redirect:/login";
+		}
+		
+		staffNoticeService.deleteNotice(id);
+		return "redirect:/staff";
+	}
 }
