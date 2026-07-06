@@ -14,21 +14,26 @@
 		<div class="menu-list">
 		<!--adminはアカウント管理のみに変更-->
 			<ul>
-		<!--		仮-->
 				<li>
 					<a href="/staff/reservations">祈願予約<br>
 						<span class="menu-count">
-							本日の未祈願：<span th:text="${todayUnprayedCount}">0</span>件　
+							本日の未祈願：<span th:text="${todayUnprayedCount}">0</span>件
 							祈願済：<span th:text="${todayPrayedCount}">0</span>件
 						</span>
 					</a></li>
-				<li><a href="#">授与品郵送</a></li>
-				<li><a href="#">崇敬者管理</a></li>
-				<li><a href="#">スケジュール</a></li>
-				<li><a href="#">在庫管理</a></li>
-				<li><a href="#">出納帳</a></li>
-				<li><a href="#">祭典出席</a></li>
-				<li><a href="#">日報記録・閲覧</a></li>
+				<li>
+					<a href="/staff/productItem">授与品郵送
+						<span class="menu-count">
+							本日の未発送：<span th:text="${todayUnproductItemCount}">0</span>件
+							発送済：<span th:text="${todayProductItemCount}">0</span>件
+						</span>
+					</a></li>
+				<li><a href="/staff/supporterManagement">崇敬者管理</a></li>
+				<li><a href="/staff/schedule">スケジュール</a></li>
+				<li><a href="/staff/productItemManagement">在庫管理</a></li>
+				<li><a href="/staff/cashBook">出納帳</a></li>
+				<li><a href="/staff/attendance">祭典出席</a></li>
+				<li><a href="/staff/daily">日報記録・閲覧</a></li>
 				<li><a href="/reservations/new">祈願登録フォーム</a></li>
 		<!--		<li th:if="${session.loginUser.admin}"><a href="#">職員アカウント管理</a></li>-->
 		    </ul>
@@ -36,7 +41,8 @@
 		</div>
 		<section class="free-area2">
 			<p id="todayBox"></p>
-			<p th:if="${errorMsg}" th:text="${errorMsg}"></p>	
+			<p th:if="${errorMsg}" th:text="${errorMsg}"></p>
+<!--			todayのdailyが上がっているかなど、更新履歴の表示	-->
 		</section>
 		
 		<section class="calendar-area">
@@ -99,6 +105,8 @@
 		<!-- 下中央：自由枠 -->
 		<section class="free-area">
 			<h2>なんか入れたい</h2>
+			理論在庫が下回った場合の表示
+			
 		</section>
 
 		
