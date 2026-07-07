@@ -1,9 +1,13 @@
 package com.shrine.entity;
 
-import java.time.LocalDateTime;
-
-import java.time.LocalTime;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 @Entity
 public class ScheduleEntity {
@@ -60,7 +64,7 @@ public class ScheduleEntity {
 	public void setGenre(String genre) { this.genre = genre;
 	
 	}
-	}
-	}
-
+	
 }
+
+

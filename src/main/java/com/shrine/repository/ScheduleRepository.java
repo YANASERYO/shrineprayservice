@@ -1,0 +1,13 @@
+package com.shrine.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.shrine.entity.ScheduleEntity;
+
+
+public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Long> {
+
+	List<ScheduleEntity> findByDeletedFalseOrderByDateAscStartTimeAsc();
+}

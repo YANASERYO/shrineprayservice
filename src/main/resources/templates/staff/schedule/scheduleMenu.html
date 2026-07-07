@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title>スケジュールメニュー</title>
+		<link rel="stylesheet" th:href="@{/css/common.css}">
+		<link rel="stylesheet" th:href="@{/css/responsive.css}">
+</head>
+<body>
+	<section class="schedule-form-area">
+	    <h2>スケジュール登録</h2>
+
+	    <form th:action="@{/staff/schedule/create}" method="post" th:object="${schedule}">
+
+	        <div>
+	            <label for="name">予定名</label>
+	            <input type="text" id="name" th:field="*{name}" placeholder="例：厄祓予約、月次祭、地鎮祭" required>
+	        </div>
+
+	        <div>
+	            <label for="date">日付</label>
+	            <input type="date" id="date" th:field="*{date}" required>
+	        </div>
+
+	        <div>
+	            <label for="startTime">開始時間</label>
+	            <input type="time" id="startTime" th:field="*{startTime}" required>
+	        </div>
+
+	        <div>
+	            <label for="endTime">終了時間</label>
+	            <input type="time" id="endTime" th:field="*{endTime}">
+	        </div>
+
+	        <div>
+	            <label for="genre">分類</label>
+	            <select id="genre" th:field="*{genre}">
+	                <option value="">選択してください</option>
+	          		<option value="祈願">結婚式</option>
+					<option value="祈願">祈願</option>
+	                <option value="祭典">祭典</option>
+	                <option value="外祭">外祭</option>
+	                <option value="会議">会議</option>
+					<option value="出張">出張</option>
+	                <option value="作業">作業</option>
+	                <option value="その他">その他</option>
+	            </select>
+	        </div>
+
+	        <div>
+	            <label for="staffName">担当者</label>
+	            <input type="text" id="staffName" th:field="*{staffName}">
+	        </div>
+
+	        <div>
+	            <label for="note">備考</label>
+	            <textarea id="note" th:field="*{note}" rows="4"></textarea>
+	        </div>
+
+	        <button type="submit">登録する</button>
+	    </form>
+	</section>
+	<section class="schedule-list-area">
+	        <h2>スケジュール一覧</h2>
+
+	        <div th:if="${#lists.isEmpty(schedules)}">
+	            <p>登録されているスケジュールはありません。</p>
+	        </div>
+
+	        <table th:if="${!#lists.isEmpty(schedules)}" border="1">
+	            <thead>
+	                <tr>
+	                    <th>日付</th>
+	                    <th>開始</th>
+	                    <th>終了</th>
+	                    <th>予定名</th>
+	                    <th>分類</th>
+	                    <th>担当者</th>
+	                    <th>記入者</th>
+	                    <th>備考</th>
+	                    <th>操作</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="schedule : ${schedules}">
+	                    <td th:text="${schedule.date}">2026-07-08</td>
+	                    <td th:text="${schedule.startTime}">10:00</td>
+	                    <td th:text="${schedule.endTime}">11:00</td>
+	                    <td th:text="${schedule.name}">月次祭</td>
+	                    <td th:text="${schedule.genre}">祭典</td>
+	                    <td th:text="${schedule.staffName}">宮司</td>
+	                    <td th:text="${schedule.staffAccount}">staff</td>
+	                    <td th:text="${schedule.note}">備考</td>
+	                    <td>
+	                        <form th:action="@{/staff/schedule/{id}/delete(id=${schedule.id})}" method="post">
+	                            <button type="submit" onclick="return confirm('削除しますか？');">削除</button>
+	                        </form>
+	                    </td>
+	                </tr>
+	            </tbody>
+	        </table>
+	    </section>
+</body>
+</html>
