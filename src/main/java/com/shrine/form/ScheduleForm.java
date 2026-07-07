@@ -1,30 +1,19 @@
-package com.shrine.entity;
+package com.shrine.form;
 
-import java.time.LocalDateTime;
-
-import java.time.LocalTime;
 import java.time.LocalDate;
+import java.time.LocalTime;
 
-@Entity
-public class ScheduleEntity {
+
+public class ScheduleForm {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	private String name;
 	private LocalDate date;
 	private LocalTime startTime;
 	private LocalTime endTime;
-	private LocalDateTime createdAt;
-	private LocalDateTime updatedAt;
-	private boolean deleted;
 	private String note;
 	private String staffName;
 	private String staffAccount;
 	private String genre;
-	
-	public Long getId() { return id; }
-	public void setId(Long id) { this.id = id; }
 	
 	public String getName() { return name; }
 	public void setName(String name) { this.name = name; }
@@ -38,15 +27,6 @@ public class ScheduleEntity {
 	public LocalTime getEndTime() { return endTime; }
 	public void setEndTime(LocalTime endTime) { this.endTime = endTime; }
 	
-	public LocalDateTime getCreatedAt() { return createdAt; }
-	public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt;}
-	
-	public LocalDateTime getUpdatedAt() { return updatedAt; }
-	public void setUpdatedAt(LocalDateTime updatedAt) { this.updatedAt = updatedAt;}
-	
-	public boolean isDeleted() { return deleted; }
-	public void setDeleted(boolean deleted) { this.deleted = deleted; }
-	
 	public String getNote() { return note; }
 	public void setNote(String note) { this.note = note; }
 	
@@ -57,10 +37,9 @@ public class ScheduleEntity {
 	public void setStaffAccount(String staffAccount) { this.staffAccount = staffAccount; }
 	
 	public String getGenre() { return genre; }
-	public void setGenre(String genre) { this.genre = genre;
+	public void setGenre(String genre) { this.genre = genre; }
 	
-	}
-	}
-	}
+	
+	
 
 }
