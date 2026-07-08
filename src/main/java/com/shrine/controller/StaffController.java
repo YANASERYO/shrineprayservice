@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.shrine.entity.StaffNoticeEntity;
 import com.shrine.service.ReservationService;
+import com.shrine.service.ScheduleService;
 import com.shrine.service.StaffNoticeService;
 
 @Controller
@@ -17,10 +18,12 @@ public class StaffController {
 	
 	private final StaffNoticeService staffNoticeService;
 	private final ReservationService reservationService;
+	private final ScheduleService scheduleService;
 
-	public StaffController(StaffNoticeService staffNoticeService, ReservationService reservationService) {	
+	public StaffController(StaffNoticeService staffNoticeService, ReservationService reservationService, ScheduleService scheduleService) {	
 		this.reservationService = reservationService;
 		this.staffNoticeService = staffNoticeService;
+		this.scheduleService = scheduleService;
 	}
 	
     @GetMapping("/staff")
@@ -38,6 +41,7 @@ public class StaffController {
         model.addAttribute("todayUnprayedCount", reservationService.countTodayUnprayed());
         model.addAttribute("todayPrayedCount", reservationService.countTodayPrayed());
         
+        model.addAttribute("todaySchedules", scheduleService.findTodaySchedules());
         
         return "staff/menu";
     }

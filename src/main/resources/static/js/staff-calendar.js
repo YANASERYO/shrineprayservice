@@ -20,16 +20,7 @@ window.addEventListener("DOMContentLoaded", () => {
             week: "週",
             day: "日"
         },
-        events: [
-            {
-                title: "厄祓 柳瀬 諒",
-                start: "2026-07-05T10:00:00"
-            },
-            {
-                title: "初宮 柳瀬 いろは",
-                start: "2026-07-05T11:00:00"
-            }
-        ]
+        events: "/staff/schedule/events"
     });
 
     calendar.render();

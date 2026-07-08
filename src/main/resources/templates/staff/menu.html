@@ -43,13 +43,46 @@
 
 		</div>
 		<section class="free-area2">
-			<p id="todayBox"></p>
-			<p th:if="${errorMsg}" th:text="${errorMsg}"></p>
-<!--			todayのdailyが上がっているかなど、更新履歴の表示	-->
+		    <p th:if="${errorMsg}" th:text="${errorMsg}"></p>
+
+		    <div class="today-schedule-box">
+
+		        <div th:if="${#lists.isEmpty(todaySchedules)}" class="today-schedule-empty">
+		            <p>本日の予定はありません。</p>
+		        </div>
+
+		        <div th:if="${!#lists.isEmpty(todaySchedules)}" class="today-schedule-list">
+		            <article th:each="schedule : ${todaySchedules}" class="today-schedule-card">
+		                <div class="today-schedule-time">
+		                    <span th:text="${schedule.startTime}">10:00</span>
+		                    <span th:if="${schedule.endTime != null}">
+		                        〜 <span th:text="${schedule.endTime}">11:00</span>
+		                    </span>
+		                </div>
+
+		                <div class="today-schedule-title">
+		                    <span th:if="${schedule.genre != null and !schedule.genre.isBlank()}"
+		                          th:text="'【' + ${schedule.genre} + '】'">【祈願】</span>
+		                    <span th:text="${schedule.name}">厄祓</span>
+		                </div>
+
+		                <div class="today-schedule-meta">
+		                    <span th:if="${schedule.staffName != null and !schedule.staffName.isBlank()}"
+		                          th:text="'担当：' + ${schedule.staffName}">担当：職員名</span>
+		                </div>
+
+		                <p th:if="${schedule.note != null and !schedule.note.isBlank()}"
+		                   th:text="${schedule.note}"
+		                   class="today-schedule-note">
+		                    備考
+		                </p>
+		            </article>
+		        </div>
+		    </div>
 		</section>
 		
 		<section class="calendar-area">
-			<div id="staffCalendar"></div>
+			
 		</section>
 		
 		<section class="notice-area">

@@ -1,5 +1,6 @@
 package com.shrine.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,6 +21,14 @@ public class ScheduleService {
 	
 	public List<ScheduleEntity> findAllNotDeleted() {
 		return scheduleRepository.findByDeletedFalseOrderByDateAscStartTimeAsc();
+	}
+	
+	public List<ScheduleEntity> findUpcomingSchedules() {
+        return scheduleRepository.findByDeletedFalseAndDateGreaterThanEqualOrderByDateAscStartTimeAsc(LocalDate.now());
+    }
+	
+	public List<ScheduleEntity> findTodaySchedules() {
+	    return scheduleRepository.findByDeletedFalseAndDateOrderByStartTimeAsc(LocalDate.now());
 	}
 	
 	public void create(ScheduleEntity schedule) {
