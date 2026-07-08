@@ -41,8 +41,11 @@ public class ScheduleController {
 	    }
 
 	    schedule.setStaffAccount(loginUser.getUserId());
+	    schedule.setStaffName(loginUser.getStaffName());
+	    
+	    
 		scheduleService.create(schedule);
-	    return "redirect:/staff/scheduleMenu";
+	    return "redirect:/staff/schedule";
 	}
 	
 	@PostMapping("/staff/schedule/{id}/delete")

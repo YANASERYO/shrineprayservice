@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>授与品管理</title>
+<link rel="stylesheet" th:href="@{/css/common.css}">
+<link rel="stylesheet" th:href="@{/css/header.css}">
+<link rel="stylesheet" th:href="@{/css/responsive.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/header :: header}"></div>
+
+<main>
+  <h1>授与品管理</h1>
+
+  <div>
+    <a th:href="@{/staff}">職員メニューへ戻る</a>
+  </div>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>授与品名</th>
+        <th>色</th>
+        <th>初穂料</th>
+        <th>在庫数</th>
+        <th>分類</th>
+        <th>用途</th>
+        <th>画像</th>
+        <th>表示状態</th>
+        <th>作成日時</th>
+        <th>更新日時</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr th:each="item : ${items}">
+        <td th:text="${item.id}">1</td>
+        <td th:text="${item.name}">交通安全守</td>
+        <td th:text="${item.color}">赤</td>
+        <td th:text="${item.price}">1000</td>
+        <td th:text="${item.stock}">50</td>
+        <td th:text="${item.category}">お守り</td>
+        <td th:text="${item.usageType}">通常授与品</td>
+        <td th:text="${item.imagePath}">/images/items/sample.png</td>
+        <td th:text="${item.active ? '表示中' : '非表示'}">表示中</td>
+		<td th:text="${item.createdAt != null ? #temporals.format(item.createdAt, 'yyyy/MM/dd HH:mm') : ''}">
+		  2026/07/08 10:00
+		</td>
+		<td th:text="${item.updatedAt != null ? #temporals.format(item.updatedAt, 'yyyy/MM/dd HH:mm') : ''}">
+		  2026/07/08 10:00
+		</td>
+      </tr>
+    </tbody>
+  </table>
+
+</main>
+<script th:src="@{/js/header-weather.js}"></script>
+</body>
+</html>

@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<body>
-<header th:fragment="header" class="site-header">
-	
-	<div class="site-header__logo-area">
-		<a th:href="@{/}" class="site-header__logo-link">
-			<img th:src="@{/images/logo.png}" alt="神社ロゴ" class="site-header_logo">
-		</a>
-	</div>
-	<div th:if="${session.loginUser.staffName}" class="login-status">
-		<span th:text="${session.loginUser.staffName}"></span>
-		<span>さん ログイン中</span> 
-		<span>
-			（<span th:text="${session.loginUser.role}"></span>）
-		</span>
+	<body>
+		<header th:fragment="header" class="site-header">
+			
+			<div class="site-header__logo-area">
+				<a th:href="@{/}" class="site-header__logo-link">
+					<img th:src="@{/images/logo.png}" alt="神社ロゴ" class="site-header_logo">
+				</a>
+			</div>
+			<div class="weather-status">
+				<span id="weatherBox">天気情報を取得中…</span>
+			</div>
+			<div th:if="${session.loginUser.staffName}" class="login-status">
+				<span th:text="${session.loginUser.staffName}"></span>
+				<span>さん ログイン中</span> 
+				<span>
+					（<span th:text="${session.loginUser.role}"></span>）
+				</span>
+				
+				<form th:action="@{/logout}" method="post" style="display:inline;">
+					<button type="submit">ログアウト</button>
+				</form>
+			</div>
+		</header>
 		
-		<form th:action="@{/logout}" method="post" style="display:inline;">
-			<button type="submit">ログアウト</button>
-		</form>
-	</div>
-</header>
-</body>
+	</body>
 </html>
 
 <!--挿入サンプル-->

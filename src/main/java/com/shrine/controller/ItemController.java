@@ -15,9 +15,9 @@ public class ItemController {
         this.itemService = itemService;
     }
 
-    @GetMapping("/admin/item/list")
+    @GetMapping("/staff/productItemManagement")
     public String list(Model model) {
         model.addAttribute("items", itemService.findAllItems());
-        return "admin/item/list";
+        return "staff/item/list";
     }
 }
