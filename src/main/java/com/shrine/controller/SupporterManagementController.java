@@ -44,8 +44,28 @@ public class SupporterManagementController {
     }
 
     @PostMapping("/staff/supporterManagement/create")
-    public String create(@ModelAttribute SupporterEntity supporter) {
+    public String create(
+            @ModelAttribute SupporterEntity supporter,
+            Model model) {
+
+        if (supporterService.existsBySupporterNumber(
+                supporter.getSupporterNumber())) {
+
+            model.addAttribute(
+                    "supporters",
+                    supporterService.findAllActiveSupporters()
+            );
+
+            model.addAttribute(
+                    "errorMsg",
+                    "同じ崇敬者番号がすでに登録されています"
+            );
+
+            return "staff/supporter/list";
+        }
+
         supporterService.create(supporter);
+
         return "redirect:/staff/supporterManagement";
     }
 

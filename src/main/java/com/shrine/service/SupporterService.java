@@ -85,4 +85,8 @@ public class SupporterService {
 
         supporterRepository.save(supporter);
     }
+    
+    public boolean existsBySupporterNumber(String supporterNumber) {
+        return supporterRepository.existsBySupporterNumber(supporterNumber);
+    }
 }
